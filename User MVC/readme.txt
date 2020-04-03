@@ -1,0 +1,3 @@
+- LAS_MVC.zip is a compressed Netbeans project
+- connection.php looks for the db credentials in htdocs/private/config.ini
+- Save the private folder to htdocs and edit the config.ini file to match your db credentials
