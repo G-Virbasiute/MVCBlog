@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once 'connection.php';
+    include_once 'blogconnection.php';
     $posts = $pdo->prepare('SELECT * FROM BLOG_POSTS WHERE PostID = ?');
     $posts->execute([$_GET['PostID']]);  
 ?>
