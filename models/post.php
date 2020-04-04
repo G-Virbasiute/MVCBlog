@@ -99,9 +99,9 @@ class Post {
 
         $req->execute();
 
-//upload product image if it exists (not sure which paramente use for this)
+//upload post image if it exists (not sure which paramente use for this)
         if (!empty($_FILES[self::InputKey]['mainimage'])) {
-            Product::uploadFile($mainimage);
+            Post::uploadFile($mainimage);
         }
     }
 
@@ -140,8 +140,8 @@ class Post {
 
         $req->execute();
 
-//upload product image
-        Product::uploadFile($title);
+//upload post image
+        Post::uploadFile($title);
     }
 
     const AllowedTypes = ['image/jpeg', 'image/jpg'];
