@@ -1,0 +1,2 @@
+- Save the private folder to your htdocs folder
+- Edit the config.ini to match your database credentials
