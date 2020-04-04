@@ -6,7 +6,7 @@
     </head>
     <body>
         <?php
-    require_once('connection.php');
+    require_once('blogconnection.php');
         
     if (isset($_GET['controller']) && isset($_GET['action'])) {
         $controller = $_GET['controller'];

@@ -1,18 +1,5 @@
-<p>This is the requested product:</p>
+<p>This is the requested blog post:</p>
+<p>Blog post ID: <?php echo $post->postid; ?></p>
+<p>Blog title: <?php echo $post->title; ?></p>
+<p>A bit about this blog:<?php echo $post->blurb; ?></p>
 
-<p>Product ID: <?php echo $product->id; ?></p>
-<p>Product Name: <?php echo $product->name; ?></p>
-<p>Product Price: £<?php echo $product->price; ?></p>
-<?php 
-$file = 'views/images/' . $product->name . '.jpeg';
-if(file_exists($file)){
-    $img = "<img src='$file' width='150' />";
-    echo $img;
-}
-else
-{
-echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
-}
-
-?>
-	
