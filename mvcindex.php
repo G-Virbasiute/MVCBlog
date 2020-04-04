@@ -6,7 +6,7 @@
     </head>
     <body>
         <?php
-    require_once('blogconnection.php');
+    require_once('connection.php');
         
     if (isset($_GET['controller']) && isset($_GET['action'])) {
         $controller = $_GET['controller'];
@@ -16,7 +16,7 @@
         $action     = 'home';
   }
 
-    require_once('views/layout.php');
+    require_once('layout.php');
         ?>
     </body>
 </html>
