@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once 'blogconnection.php';
+    include_once 'connection.php';
     $posts = $pdo->prepare('SELECT * FROM BLOG_POSTS INNER JOIN USER_TABLE ON USER_TABLE.UserID = BLOG_POSTS.UserID WHERE PostID = ?');
     $posts->execute([$_GET['PostID']]);  
 ?>
