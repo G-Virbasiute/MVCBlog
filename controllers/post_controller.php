@@ -59,7 +59,7 @@ class PostController {
       
     }
     public function delete() {
-            Post::remove($_GET['postid']);
+            Post::remove($_GET['id']);
             
             $posts = Post::all();
             require_once('views/posts/readAll.php');

@@ -189,9 +189,9 @@ class Post {
         $db = Db::getInstance();
         //make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('DELTE FROM BLOG_POSTS PostID = :id');
+        $req = $db->prepare('DELETE FROM BLOG_POSTS WHERE PostID = :id');
         // the query was prepared, now replace :id with the actual $id value
-        $req->execute(array('PostID' => $id));
+        $req->execute(array('id' => $id));
     }
 
 }
