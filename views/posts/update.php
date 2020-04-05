@@ -59,14 +59,34 @@
     </select>
     <label>Difficulty rating</label>
     </br>
-    
-    <input class = "w3-input" type = "text" name = "poststatus" value = "<?= $post->poststatus; ?>" >
-    <label>Post Status</label>
-</p>
 
-<!--<br/> -->
-<!--<input type = "file" name = "myUploader" class = "w3-btn w3-pink" /> -->
-<p>
-    <input class = "w3-btn w3-gray" type = "submit" value = "Update Blog Post">
-</p>
+
+
+    </br>
+    <p>
+        <label>Change publish status:</label></br>
+        <?php
+        switch ($post->poststatus) {
+            case 0:
+                echo "<input type= 'radio' name='poststatus' value='1'"
+                . "<label>Set as published</label><br>"
+                . "<input type='radio' name='poststatus' value='0' checked='checked'>"
+                . "<label>Set as unpublished</label><br>";
+                break;
+
+            case 1:
+                echo "<input type= 'radio' name='poststatus' value='1' checked='checked'>"
+                . "<label>Set as published</label><br>"
+                . "<input type='radio' name='poststatus' value='0'>"
+                . "<label>Set as unpublished</label><br>";
+                break;
+        }
+        ?>
+    </p>
+
+    <!--<br/> -->
+    <!--<input type = "file" name = "myUploader" class = "w3-btn w3-pink" /> -->
+    <p>
+        <input class = "w3-btn w3-gray" type = "submit" value = "Update Blog Post">
+    </p>
 </form>
