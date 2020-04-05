@@ -60,12 +60,11 @@ class Post {
 
     public static function update($id) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update BLOG_POSTS set UserID=:userid, Title=:title, Blurb=:blurb, MainImage=:mainimage, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:id");
+        $req = $db->prepare("Update BLOG_POSTS set UserID=:userid, Title=:title, Blurb=:blurb, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
         $req->bindParam(':postid', $id);
         $req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':blurb', $blurb);
-        $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
         $req->bindParam(':rating', $rating);
         $req->bindParam(':poststatus', $poststatus);
@@ -91,6 +90,7 @@ class Post {
             $filteredPostStatus = filter_input(INPUT_POST, 'poststatus', FILTER_SANITIZE_SPECIAL_CHARS);
         }
 
+       
         $userid = $filteredUserID;
         $title = $filteredTitle;
         $blurb = $filteredBlurb;

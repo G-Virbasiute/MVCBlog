@@ -44,14 +44,14 @@ class PostController {
         return call('pages', 'error');
 
         // we use the given id to get the correct post
-        $post = Post::find($_GET['postid']);
+        $post = Post::find($_GET['id']);
       
         require_once('views/posts/update.php');
         }
       else
           { 
-            $id = $_GET['postid'];
-            Post::update($postid);
+            $id = $_GET['id'];
+            Post::update($id);
                         
             $posts = Post::all();
             require_once('views/posts/readAll.php');
