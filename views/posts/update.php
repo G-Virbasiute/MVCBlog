@@ -84,8 +84,8 @@
         ?>
     </p>
 
-    <!--<br/> -->
-    <!--<input type = "file" name = "myUploader" class = "w3-btn w3-pink" /> -->
+    <br/>
+    <input type = "file" name = "blogpic" class = "w3-btn w3-pink" />
     <p>
         <input class = "w3-btn w3-gray" type = "submit" value = "Update Blog Post">
     </p>
