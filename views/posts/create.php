@@ -28,12 +28,12 @@
 </select>
 
 
-<!-- <input type="hidden"  -->
-<!--	   name="MAX_FILE_SIZE"  -->
-<!--         value="10000000"  -->
-<!--         />  -->
+ <input type="hidden"  
+	   name="MAX_FILE_SIZE" 
+         value="10000000"  
+         />  
 
-  <!--<input type="file" name="myUploader" class="w3-btn w3-pink" required />-->
+  <input type="file" name="blogpic" class="w3-btn w3-pink" required />
 <p>
     <input class="w3-btn w3-pink" type="submit" value="Create My Post!">
 </p>

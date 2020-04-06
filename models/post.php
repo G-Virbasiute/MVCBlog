@@ -104,19 +104,15 @@ class Post {
 
     public static function add() {
         $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Blurb, Content, DifficultyRating) VALUES (:userid, :title, :blurb, :content, :rating)");
+        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Blurb, MainImage, Content, DifficultyRating) VALUES (:userid, :title, :blurb, :mainimage, :content, :rating)");
         $req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':blurb', $blurb);
+        $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
         $req->bindParam(':rating', $rating);
 
-        echo $userid;
-        echo $title;
-        echo $blurb;
-        echo $content;
-        echo $rating;
-             
+
 // set parameters and execute
         if (isset($_POST['userid']) && $_POST['userid'] != "") {
             $filteredUserID = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -137,48 +133,49 @@ class Post {
         $userid = $filteredUserID;
         $title = $filteredTitle;
         $blurb = $filteredBlurb;
+        $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
 
         $req->execute();
 
 //upload post image
-//        Post::uploadFile($title);
-//    }
+        Post::uploadFile($title);
+    }
 
-//    const AllowedTypes = ['image/jpeg', 'image/jpg'];
-//    const InputKey = 'myUploader';
+    const AllowedTypes = ['image/jpeg', 'image/jpg'];
+    const InputKey = 'blogpic';
 
 //die() function calls replaced with trigger_error() calls
 //replace with structured exception handling
-//    public static function uploadFile(string $name) {
+    public static function uploadFile(string $name) {
 
-//        if (empty($_FILES[self::InputKey])) {
+        if (empty($_FILES[self::InputKey])) {
             //die("File Missing!");
-//            trigger_error("File Missing!");
-//        }
+            trigger_error("File Missing!");
+        }
 
-//        if ($_FILES[self::InputKey]['error'] > 0) {
-//            trigger_error("Handle the error! " . $_FILES[InputKey]['error']);
-//        }
+        if ($_FILES[self::InputKey]['error'] > 0) {
+            trigger_error("Handle the error! " . $_FILES[InputKey]['error']);
+        }
 
 
-//        if (!in_array($_FILES[self::InputKey]['type'], self::AllowedTypes)) {
-//            trigger_error("File Type Not Allowed: " . $_FILES[self::InputKey]['type']);
-//        }
+        if (!in_array($_FILES[self::InputKey]['type'], self::AllowedTypes)) {
+            trigger_error("File Type Not Allowed: " . $_FILES[self::InputKey]['type']);
+        }
 
-//        $tempFile = $_FILES[self::InputKey]['tmp_name'];
-//        $path = "C:/xampp/htdocs/MVCBlog/images/";
-//        $destinationFile = $path . $title . '.jpeg';
+        $tempFile = $_FILES[self::InputKey]['tmp_name'];
+        $path = __DIR__ . "../../views/images/blogpics/";
+        $destinationFile = $path . $name . '.jpeg';
 
-//        if (!move_uploaded_file($tempFile, $destinationFile)) {
-//            trigger_error("Handle Error");
-//        }
+        if (!move_uploaded_file($tempFile, $destinationFile)) {
+            trigger_error("Handle Error");
+        }
 
         //Clean up the temp file
-//        if (file_exists($tempFile)) {
-//            unlink($tempFile);
-//        }
+        if (file_exists($tempFile)) {
+            unlink($tempFile);
+        }
     }
 
     public static function remove($id) {
