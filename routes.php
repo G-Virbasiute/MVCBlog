@@ -27,6 +27,7 @@
 $controllers = array('pages' => ['home', 'error'],
                     'user' => ['readAllUsers','readUser','createUser','updateUser','deleteUser'],
                     'post' => ['readAll', 'read', 'create', 'update', 'delete'],
+                    'category' => ['readAll', 'read', 'create', 'update', 'delete'],
                     'controllerXXX' => ['actionYYY', 'actionZZZ'],
                     );
 

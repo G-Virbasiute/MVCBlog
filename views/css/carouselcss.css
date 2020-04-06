@@ -1,0 +1,8 @@
+.carousel-inner > .item {
+   height: 400px;
+   width: 800px;
+}
+
+.carousel-inner img {
+  margin: auto;
+}
