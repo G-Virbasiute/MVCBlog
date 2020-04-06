@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>MVC Skeleton</title>
+        <title>Life's a Stitch</title>
     </head>
     <body>
         <?php
@@ -16,7 +16,7 @@
         $action     = 'home';
   }
 
-    require_once('layout.php');
+    require_once('views/layout.php');
         ?>
     </body>
 </html>

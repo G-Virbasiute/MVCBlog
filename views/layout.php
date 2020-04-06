@@ -11,20 +11,70 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
         <link href="carouselcss.css" rel="stylesheet" type="text/css"/>
+        <link href="views/css/post.css" rel="stylesheet" type="text/css"/>
     </head>
-<title>MVC</title>
+<title>Life's a Stitch</title>
   </head>
   <body>
-<?php
-    include 'navbar.php';
-?>
-    <header class="w3-container w3-gray">
+<style>
+.dropdown-menu {
+  width: 200px;
+  height: 200px;
+  overflow-y: auto;
+}
+</style>
+    <center><img style="margin-top: 10px; margin-bottom: 5px;" src="views/images/logo2.png"></center>
+
+        <div style="border-top: 2px solid black; border-bottom: 2px solid black; ">    
+    <nav class="navbar navbar-expand-lg navbar-light" style=" font-family: 'Amatic SC', cursive; font-size: 30px; left: 32%;">
+           
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="?">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?controller=post&action=readAll">Tutorials</a>
+                    </li>
+                   
+<!-----------------Populate from the database, add id's, and onclick it will take you to a category's page with all tutorials for that category------------------->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <table>
+                                <?php foreach ($categories as $category): ?>
+                                    <tr>
+                                        <td><a class="dropdown-item" href="categorypage.php?PostID=<?= $category['CategoryID'] ?>" style="font-size: 30px;"><?= $category['Category'] ?></a></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </table>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Members Portal
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="?controller=user&action=createUser" style="font-size: 30px;">Sign up</a>
+                            <a class="dropdown-item" href="#" style="font-size: 30px;">Log in</a>
+                            <a class="dropdown-item" href="#" style="font-size: 30px;">Your dashboard</a> <!-- Only accessible after someone has logged in-->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+</div>
+
+   <!-- <header class="w3-container w3-gray">
       <a href='?'>Home</a>
       <a href='?controller=post&action=readAll'>Posts</a>
       <a href='?controller=post&action=create'>Add Post</a>
       <a href='?controller=user&action=readAllUsers'>Users</a>
       <a href='?controller=user&action=createUser'>Add User</a>
     </header>
+   -->
 <div class="w3-container w3-blue">
     <?php require_once('routes.php'); ?>
 </<div>

@@ -110,7 +110,7 @@ Working this way (doing the shape half-and-half) is just a personal preference o
 Wanna see what it can really look like?", 'Beginner', current_timestamp()),
 
 ("2", "A Step by Step Guide on How to Make a Bohemian Macramé Bag", "Looking to learn how to make your very own macramé bag? One that you can use to carry books? or fruits and vegetables after a visit to the grocery store? Or perhaps you were looking to wear something fashionable that’s hip and trendy to your favourite outdoor music festival? In this blog post, I share how you can create your very own stylish boho-chic macramé bag for as little as $20, that you can make in a few hours.",
-"imges/macrame.jpg", "Macrame Bag Materials You Will Need
+"images/macrame.jpg", "Macrame Bag Materials You Will Need
 Before we begin making this macrame bag you will need a few supplies. There is nothing overly expensive, so you don’t need to worry about the cost.
 
 I try to keep the cost of materials and supplies down as much as possible, without sacrificing quality to help me save and use all my materials wisely.

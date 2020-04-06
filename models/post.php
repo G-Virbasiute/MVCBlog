@@ -11,12 +11,10 @@ class Post {
     public $content;
     public $rating;
     public $created;
-    public $published;
-    public $updated;
     public $postviews;
     public $poststatus;
 
-    function __construct($postid, $userid, $title, $blurb, $mainimage, $content, $rating, $created, $published, $updated, $postviews, $poststatus) {
+    function __construct($postid, $userid, $title, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus) {
         $this->postid = $postid;
         $this->userid = $userid;
         $this->title = $title;
@@ -25,8 +23,6 @@ class Post {
         $this->content = $content;
         $this->rating = $rating;
         $this->created = $created;
-        $this->published = $published;
-        $this->updated = $updated;
         $this->postviews = $postviews;
         $this->poststatus = $poststatus;
     }
@@ -37,7 +33,7 @@ class Post {
         $req = $db->query('SELECT * FROM BLOG_POSTS');
         // we create a list of Blog Post objects from the database results
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['Published'], $post['Updated'], $post['PostViews'], $post['PostStatus']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
         }
         return $list;
     }
@@ -51,7 +47,7 @@ class Post {
         $req->execute(array('id' => $id));
         $post = $req->fetch();
         if ($post) {
-            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['Published'], $post['Updated'], $post['PostViews'], $post['PostStatus']);
+            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
         } else {
             //replace with a more meaningful exception
             throw new Exception("We couldn't find that blog post");
