@@ -6,7 +6,7 @@
                         echo '<div>';
                         echo '<h1>' . $post->title . '</h1>';
                         //echo '<p>Written by ' . $post->username . '</p>';
-                        echo '<img src="' . $post->mainimage . '">';
+                        echo '<img style="width: auto; height: 400px" src="' . $post->mainimage . '">';
                         echo '<p>Category: ' . $post->category . '</p>';
                         echo '<p>Difficulty rating: ' . $post->rating . '</p>';
                         echo '<p>' . $post->content . '</p>';
