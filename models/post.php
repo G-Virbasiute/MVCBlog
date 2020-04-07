@@ -86,16 +86,11 @@ class Post {
         if (isset($_POST['poststatus']) && $_POST['poststatus'] != "") {
             $filteredPostStatus = filter_input(INPUT_POST, 'poststatus', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if (!isset($_POST['blogpic']) && (!empty($_FILES[self::InputKey]['mainimage']))) {
-            $mainimage = $_FILES[self::InputKey]['mainimage'];
-        } else {
-            $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
-        }
-
 
         $userid = $filteredUserID;
         $title = $filteredTitle;
         $blurb = $filteredBlurb;
+        $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
         $poststatus = $filteredPostStatus;
@@ -154,32 +149,31 @@ class Post {
     public static function uploadFile(string $name) {
 
         if (empty($_FILES[self::InputKey])) {
-//die("File Missing!");
             trigger_error("File Missing!");
         }
-    }
-       // if ($_FILES[self::InputKey]['error'] > 0) {
-       //     trigger_error("Handle the error! " . $_FILES[InputKey]['error']);
-       // }
+
+        if ($_FILES[self::InputKey]['error'] > 0) {
+            trigger_error("Handle the error! " . $_FILES[InputKey]['error']);
+        }
 
 
-     //   if (!in_array($_FILES[self::InputKey]['type'], self::AllowedTypes)) {
-     //       trigger_error("File Type Not Allowed: " . $_FILES[self::InputKey]['type']);
-     //   }
+        if (!in_array($_FILES[self::InputKey]['type'], self::AllowedTypes)) {
+            trigger_error("File Type Not Allowed: " . $_FILES[self::InputKey]['type']);
+        }
 
-    //    $tempFile = $_FILES[self::InputKey]['tmp_name'];
-    //    $path = __DIR__ . "../../views/images/blogpics/";
-    //    $destinationFile = $path . $name . '.jpeg';
+        $tempFile = $_FILES[self::InputKey]['tmp_name'];
+        $path = __DIR__ . "../../views/images/blogpics/";
+        $destinationFile = $path . $name . '.jpeg';
 
-    //    if (!move_uploaded_file($tempFile, $destinationFile)) {
-    //        trigger_error("Handle Error");
-    //    }
+        if (!move_uploaded_file($tempFile, $destinationFile)) {
+            trigger_error("Handle Error");
+        }
 
 //Clean up the temp file
- //       if (file_exists($tempFile)) {
- //           unlink($tempFile);
- //       }
- //   }
+        if (file_exists($tempFile)) {
+            unlink($tempFile);
+        }
+    }
 
     public static function remove($id) {
         $db = Db::getInstance();
