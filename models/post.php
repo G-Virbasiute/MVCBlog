@@ -122,7 +122,7 @@ class Post {
 
     public static function add() {
         $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating) VALUES (:userid, :title, :blurb, :mainimage, :content, :rating)");
+        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating) VALUES (:userid, :title, :category, :blurb, :mainimage, :content, :rating)");
         $req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
@@ -156,7 +156,7 @@ class Post {
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;
-        $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
+        $mainimage = 'views/images/' . $filteredTitle . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
 

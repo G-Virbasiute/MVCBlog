@@ -14,6 +14,18 @@
                         echo '</div>';
                     ?>
                 </div>
+                <div class="card">
+                    <button><a href="?controller=comment&action=postComment&id= <?php echo $post->postid?>"> View Comments</a></button>
+                </div>
+                <div class="card">
+                    <button><a href="?controller=comment&action=create&id= <?php echo $post->postid?>"> Write a Comment</a></button>
+                </div>
+     <!--           <div class="card" id="comment">
+                    <a onclick="comment('<?php// echo $post->postid ?>')">
+                        <button>View Comments</button>
+                    </a>
+                </div>
+     -->
             </div>
             <div class="rightcolumn">
                 <div class="card">

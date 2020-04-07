@@ -28,6 +28,14 @@
             <option><option value="Expert">Expert</option>
         </select>
     </div>
+    <div>
+        <label>Category:</label>
+        <select name="category" required>
+            <option><option value="1">Embroidery</option>
+            <option><option value="2">Macrame</option>
+            <option><option value="6">Knitting</option>
+        </select>
+    </div>
 
     <div>
         <input type="hidden"  
@@ -35,7 +43,7 @@
                value="10000000"  
                />  
 
-        <input type="file" name="blogpic" class="w3-btn w3-pink" required />
+        <input type="file" name="blogpic" class="w3-btn w3-pink"/>
         <p>
             <input class="w3-btn w3-pink" type="submit" value="Create My Post!">
         </p>

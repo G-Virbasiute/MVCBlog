@@ -12,6 +12,20 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
         <link href="views/css/carouselcss.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/post.css" rel="stylesheet" type="text/css"/>
+        <script language="JavaScript">
+           function comment(strChoice) {
+               event.preventDefault();
+               var xmlhttp = new XMLHttpRequest();
+               xmlhttp.onreadystatechange = function () {
+                   if (this.readyState == 4 && this.status == 200) {
+                       document.getElementById("comment").innerHTML = this.responseText;
+                   }
+               };
+               xmlhttp.open("GET", "?controller=comment&action=postComment&id=" + strChoice);
+               xmlhttp.send();
+           }
+        </script>
+               
     </head>
 <title>Life's a Stitch</title>
   </head>
