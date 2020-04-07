@@ -62,17 +62,16 @@ class Comment {
         return $list;
     }
 
-    public static function add($id) {
+    public static function add() {
         $db = Db::getInstance();
-        $id = intval($id);
-        $req = $db->prepare("INSERT INTO COMMENTS (PostID, UserID, Comment) VALUES ($id, :userid, :comment)");
-        $req->bindParam($id, $postid);
+        $req = $db->prepare("INSERT INTO COMMENTS (PostID, UserID, Comment) VALUES (:postid, :userid, :comment)");
+        $req->bindParam(':postid', $postid);
         $req->bindParam(':userid', $userid);
         $req->bindParam(':comment', $comment);
 
 
-        if (isset($_POST[$id]) && $_POST[$id] != "") {
-            $filteredPostID = filter_input(INPUT_POST, $id, FILTER_SANITIZE_SPECIAL_CHARS);
+        if (isset($_POST['postid']) && $_POST['postid'] != "") {
+            $filteredPostID = filter_input(INPUT_POST, 'postid', FILTER_SANITIZE_SPECIAL_CHARS);
         }
         if (isset($_POST['userid']) && $_POST['userid'] != "") {
             $filteredUserID = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_SPECIAL_CHARS);

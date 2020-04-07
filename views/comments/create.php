@@ -4,6 +4,10 @@
 
     <div style="width: 40%; margin-left: 50px; margin-top: 50px;">
         <div>
+            <label>Post ID</label>
+            <input class="w3-input" type="text" name="postid" placeholder="Post ID" required autofocus>
+        </div>
+        <div>
             <label>User ID</label>
             <input class="w3-input" type="text" name="userid" placeholder="Your User ID" required autofocus>
         </div>
@@ -13,6 +17,8 @@
         </div>
         <p>
             <input class="w3-btn w3-pink" type="submit" value="Comment">
-        </p
+        </p>
+    </div>
+    
 </form>
 
