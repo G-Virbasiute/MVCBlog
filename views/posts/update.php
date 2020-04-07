@@ -85,7 +85,7 @@
     </p>
 
     <br/>
-    <input type = "file" name = "blogpic" class = "w3-btn w3-pink" />
+    <input type = "file" name = "blogpic" class = "w3-btn w3-pink" value="<?= $post->mainimage; ?>" />
     <p>
         <input class = "w3-btn w3-gray" type = "submit" value = "Update Blog Post">
     </p>
