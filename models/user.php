@@ -1,7 +1,7 @@
 <?php
 
 class User {
-    
+
     private $userID;
     public $userType;
     public $username;
@@ -11,117 +11,108 @@ class User {
     public $emailAddress;
     private $password;
 
-   
     public function __construct($usertype, $username, $profilephoto, $firstname, $lastname, $emailaddress, $password) {
 
-      $this->userType = $usertype;
-      $this->username = $username;
-      $this->profilePhoto = $profilephoto;      
-      $this->firstName = $firstname;  
-      $this->lastName = $lastname;
-      $this->emailAddress = $emailaddress;
-      $this->password = $password;
+        $this->userType = $usertype;
+        $this->username = $username;
+        $this->profilePhoto = $profilephoto;
+        $this->firstName = $firstname;
+        $this->lastName = $lastname;
+        $this->emailAddress = $emailaddress;
+        $this->password = $password;
     }
 
-     
     public static function all() {
-      $list = [];
-      $db = Db::getInstance();
-      $req = $db->query('SELECT * FROM USER_TABLE');
-      // we create a list of User objects from the database results
-      foreach($req->fetchAll() as $user) {
-        $list[] = new User($user['UserType'], $user['Username'], $user['ProfilePhoto'], $user['FirstName'], $user['LastName'], $user['EmailAddress'], $user['Password']);
-      }
-      return $list;
+        $list = [];
+        $db = Db::getInstance();
+        $req = $db->query('SELECT * FROM USER_TABLE');
+        // we create a list of User objects from the database results
+        foreach ($req->fetchAll() as $user) {
+            $list[] = new User($user['UserType'], $user['Username'], $user['ProfilePhoto'], $user['FirstName'], $user['LastName'], $user['EmailAddress'], $user['Password']);
+        }
+        return $list;
     }
 
-    
     public static function find($username) {
-      $db = Db::getInstance();
-      //use strval to make sure $username is a string
-      $username = strval($username);
-      $req = $db->prepare('SELECT * FROM USER_TABLE WHERE Username = :username');
-      //the query was prepared, now replace :username with the actual $username value
-      $req->execute(array('username' => $username));
-      $user = $req->fetch();
-        if($user){
+        $db = Db::getInstance();
+        //use strval to make sure $username is a string
+        $username = strval($username);
+        $req = $db->prepare('SELECT * FROM USER_TABLE WHERE Username = :username');
+        //the query was prepared, now replace :username with the actual $username value
+        $req->execute(array('username' => $username));
+        $user = $req->fetch();
+        if ($user) {
             return new User($user['UserType'], $user['Username'], $user['ProfilePhoto'], $user['FirstName'], $user['LastName'], $user['EmailAddress'], $user['Password']);
-        }
-        else
-        {
-        //replace with a more meaningful exception
-        throw new Exception('A real exception should go here');
+        } else {
+            //replace with a more meaningful exception
+            throw new Exception('A real exception should go here');
         }
     }
 
-    
-    
     public static function update($username) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update USER_TABLE set FirstName=:firstname, LastName=:surname, EmailAddress=:email where Username=:username");
+        $req = $db->prepare("Update USER_TABLE set ProfilePhoto=:profilephoto, FirstName=:firstname, LastName=:surname, EmailAddress=:email where Username=:username");
         $req->bindParam(':username', $username);
+        $req->bindParam(':profilephoto', $profilephoto);
         $req->bindParam(':firstname', $firstname);
         $req->bindParam(':surname', $surname);
         $req->bindParam(':email', $emailaddress);
-   
-        if(isset($_POST['firstname'])&& $_POST['firstname']!=""){
-            $filteredFirstName = filter_input(INPUT_POST,'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($_POST['firstname']) && $_POST['firstname'] != "") {
+            $filteredFirstName = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-    
-        if(isset($_POST['surname'])&& $_POST['surname']!=""){
-            $filteredSurname = filter_input(INPUT_POST,'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($_POST['surname']) && $_POST['surname'] != "") {
+            $filteredSurname = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-    
-        if(isset($_POST['email'])&& $_POST['email']!=""){
-            $filteredEmail = filter_input(INPUT_POST,'email', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($_POST['email']) && $_POST['email'] != "") {
+            $filteredEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
         }
 
         $firstname = $filteredFirstName;
         $surname = $filteredSurname;
+        $profilephoto = 'views/images/profilepics/' . $username . '.jpeg';
         $emailaddress = $filteredEmail;
         $req->execute();
 
-        //upload user profile pic if it exists
-        //BLAHBLAHBLAH
-	//}
-
+        User::uploadFile($username);
     }
-    
-   
+
     public static function addUser() {
-        
+
         $db = Db::getInstance();
         $req = $db->prepare("Insert into USER_TABLE (Username, ProfilePhoto, FirstName, LastName, EmailAddress, Password) values (:username, :profilepic, :firstname, :surname, :email, :password)");
         $req->bindParam(':username', $username);
         $req->bindParam(':firstname', $firstname);
         $req->bindParam(':surname', $surname);
         $req->bindParam(':email', $emailaddress);
-        $req->bindParam(':profilepic', $profilepic);    
+        $req->bindParam(':profilepic', $profilepic);
         $req->bindParam(':password', $password);
 
         // set parameters and execute
-        if(isset($_POST['username'])&& $_POST['username']!=""){
-            $filteredUsername = filter_input(INPUT_POST,'username', FILTER_SANITIZE_SPECIAL_CHARS);
+        if (isset($_POST['username']) && $_POST['username'] != "") {
+            $filteredUsername = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-    
-        if(isset($_POST['firstname'])&& $_POST['firstname']!=""){
-            $filteredFirstName = filter_input(INPUT_POST,'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($_POST['firstname']) && $_POST['firstname'] != "") {
+            $filteredFirstName = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-    
-        if(isset($_POST['surname'])&& $_POST['surname']!=""){
-            $filteredSurname = filter_input(INPUT_POST,'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($_POST['surname']) && $_POST['surname'] != "") {
+            $filteredSurname = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-    
-        if(isset($_POST['email'])&& $_POST['email']!=""){
-            $filteredEmail = filter_input(INPUT_POST,'email', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($_POST['email']) && $_POST['email'] != "") {
+            $filteredEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-    
-        if(isset($_POST['password'])&& $_POST['password']!=""){
-            $filteredPassword = password_hash((filter_input(INPUT_POST,'password', FILTER_SANITIZE_SPECIAL_CHARS)), PASSWORD_DEFAULT);
+
+        if (isset($_POST['password']) && $_POST['password'] != "") {
+            $filteredPassword = password_hash((filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS)), PASSWORD_DEFAULT);
         }
-        
+
         $username = $filteredUsername;
-        $profilepic = 'views/images/profilepics/'.$filteredUsername.'.jpeg';
+        $profilepic = 'views/images/profilepics/' . $filteredUsername . '.jpeg';
         $firstname = $filteredFirstName;
         $surname = $filteredSurname;
         $emailaddress = $filteredEmail;
@@ -132,14 +123,13 @@ class User {
         User::uploadFile($username);
     }
 
-        
     const AllowedTypes = ['image/jpeg', 'image/jpg'];
     const InputKey = 'profilepic';
 
     //die() function calls replaced with trigger_error() calls
     //replace with structured exception handling
     public static function uploadFile(string $name) {
-            
+
         if (empty($_FILES[self::InputKey])) {
             trigger_error("File Missing!");
         }
@@ -157,25 +147,22 @@ class User {
         $destinationFile = $path . $name . '.jpeg';
 
         if (!move_uploaded_file($tempFile, $destinationFile)) {
-		trigger_error("Handle Error");
+            trigger_error("Handle Error");
         }
-		
+
         //Clean up the temp file
         if (file_exists($tempFile)) {
-            unlink($tempFile); 
+            unlink($tempFile);
         }
     }
-    
-    
-    public static function remove($username) {
-      $db = Db::getInstance();
-      //make sure $username is a string
-      $username = strval($username);
-      $req = $db->prepare('delete FROM USER_TABLE WHERE Username = :username');
-      // the query was prepared, now replace :username with the actual $username value
-      $req->execute(array('username' => $username));
-    }
-     
-}
-      
 
+    public static function remove($username) {
+        $db = Db::getInstance();
+        //make sure $username is a string
+        $username = strval($username);
+        $req = $db->prepare('delete FROM USER_TABLE WHERE Username = :username');
+        // the query was prepared, now replace :username with the actual $username value
+        $req->execute(array('username' => $username));
+    }
+
+}
