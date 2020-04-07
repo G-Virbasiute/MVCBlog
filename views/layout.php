@@ -1,3 +1,9 @@
+<?php
+// Initialize the session
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -30,6 +36,12 @@
 <title>Life's a Stitch</title>
   </head>
   <body>
+<?php      
+            if (isset($_SESSION['loggedin'])) {
+            echo '<div style="position:absolute;right:30px;width:100%;text-align:right;font-family:\'Amatic SC\', cursive; font-size:30px;">';
+            echo'<p>Welcome home, '.$_SESSION['username'].'!</p><br></div>';
+           }
+?>
 <style>
 .dropdown-menu {
   width: 200px;

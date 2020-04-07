@@ -1,8 +1,5 @@
 <?php
-                if (isset($_SESSION['loggedin'])) {
-            echo '<div style="position:absolute;right:30px;width:100%;text-align:right;font-family:\'Amatic SC\', cursive; font-size:30px;">';
-            echo'<p>Welcome home, '.$_SESSION['username'].'!</p><br></div>';
-           }
+
         ?>
     <center><h1 style="font-family: 'Amatic SC', cursive; font-size: 100px"> Happy crafting!</h1></center>
     <h2 style=" font-family: 'Amatic SC', cursive; font-size: 50px; font-weight: bold; text-align: center;">Our top tutorials:</h2>
