@@ -156,7 +156,7 @@ class Post {
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;
-        $mainimage = 'views/images/' . $filteredTitle . '.jpeg';
+        $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
 
@@ -187,7 +187,7 @@ class Post {
         }
 
         $tempFile = $_FILES[self::InputKey]['tmp_name'];
-        $path = __DIR__ . "views/images/blogpics/";
+        $path = dirname(__DIR__) . "/views/images/blogpics/";
         $destinationFile = $path . $name . '.jpeg';
 
         if (!move_uploaded_file($tempFile, $destinationFile)) {
