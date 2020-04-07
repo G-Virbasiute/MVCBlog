@@ -22,6 +22,21 @@ class PostController {
      return call('pages','error');
  }
     }
+    
+    public function readCategory() {
+        if (!isset($_GET['id']))
+            return call ('pages', 'error');
+        
+        try {
+            $posts = Post::readCategory($_GET['id']);
+            require_once('views/posts/readCategory.php');
+        } 
+        catch (Exception $ex) {
+            return call('pages', 'error');
+
+        }
+    } 
+            
     public function create() {
       // we expect a url of form ?controller=products&action=create
       // if it's a GET request display a blank form for creating a new blog post

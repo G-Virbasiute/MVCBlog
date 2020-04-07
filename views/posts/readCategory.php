@@ -1,11 +1,18 @@
 <div class="row">
     <div class="leftcolumn">
         <div class="card">
-            <h3>Here are all our craft categories:</h3>
             <table>
-                <?php foreach ($categories as $category): ?>
+                <?php foreach ($posts as $post): ?>
                     <tr>
-                        <td><a href="?controller=post&action=readCategory&id= <?php echo $category->categoryid ?> " style="font-size: 30px; font-family: 'Amatic SC', cursive;"><?= $category->category ?></a></td>
+                        <?php
+                        echo '<div>';
+                        echo '<h1><a href="?controller=post&action=read&id=' . $post->postid . '">' . $post->title . '</a></h1>';
+                        echo '<p>Posted on ' . ($post->created) . '</p>';
+                        echo '<p>' . $post->blurb . '</p>';
+                        echo '<button><a href="?controller=post&action=read&id=' . $post->postid . '">Read More</a></button>';
+                        echo '<p><br/></p>';
+                        echo '</div>';
+                        ?>
                     </tr>
                 <?php endforeach; ?>
             </table>

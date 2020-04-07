@@ -6,6 +6,7 @@ class Post {
     public $postid;
     public $userid;
     public $title;
+    public $category;
     public $blurb;
     public $mainimage;
     public $content;
@@ -14,10 +15,11 @@ class Post {
     public $postviews;
     public $poststatus;
 
-    function __construct($postid, $userid, $title, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus) {
+    function __construct($postid, $userid, $title, $category, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus) {
         $this->postid = $postid;
         $this->userid = $userid;
         $this->title = $title;
+        $this->category = $category;
         $this->blurb = $blurb;
         $this->mainimage = $mainimage;
         $this->content = $content;
@@ -33,7 +35,7 @@ class Post {
         $req = $db->query('SELECT * FROM BLOG_POSTS');
 // we create a list of Blog Post objects from the database results
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
         }
         return $list;
     }
@@ -42,24 +44,38 @@ class Post {
         $db = Db::getInstance();
 //use intval to make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT * FROM BLOG_POSTS WHERE PostID = :id');
+        $req = $db->prepare('SELECT PostID, BLOG_POSTS.UserID, Title, POST_CATEGORY.Category, Blurb, MainImage, Content, DifficultyRating, Created, PostViews, PostStatus, USER_TABLE.Username FROM BLOG_POSTS INNER JOIN USER_TABLE ON BLOG_POSTS.UserID = USER_TABLE.UserID INNER JOIN POST_CATEGORY ON BLOG_POSTS.Category = POST_CATEGORY.CategoryID WHERE PostID = :id');
 //the query was prepared, now replace :id with the actual $id value
         $req->execute(array('id' => $id));
         $post = $req->fetch();
         if ($post) {
-            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
+            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Username']);
         } else {
 //replace with a more meaningful exception
             throw new Exception("We couldn't find that blog post");
         }
     }
+    
+    public static function readCategory($id) {
+        $list = [];
+        $db = Db::getInstance();
+        $id = intval($id);
+        $req = $db->prepare('SELECT * FROM BLOG_POSTS WHERE Category = :id');
+        $req->execute(array('id' => $id));
+        foreach ($req->fetchAll() as $post) {
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
+        }
+
+        return $list;
+    }
 
     public static function update($id) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update BLOG_POSTS set UserID=:userid, Title=:title, Blurb=:blurb, MainImage=:mainimage, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
+        $req = $db->prepare("Update BLOG_POSTS set UserID=:userid, Title=:title, Category=:category, Blurb=:blurb, MainImage=:mainimage, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
         $req->bindParam(':postid', $id);
         $req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
+        $req->bindParam(':category', $category);
         $req->bindParam(':blurb', $blurb);
         $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
@@ -73,6 +89,9 @@ class Post {
         }
         if (isset($_POST['title']) && $_POST['title'] != "") {
             $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if (isset($_POST['category']) && $_POST['category'] != "") {
+            $filteredCategory = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_SPECIAL_CHARS);
         }
         if (isset($_POST['blurb']) && $_POST['blurb'] != "") {
             $filteredBlurb = filter_input(INPUT_POST, 'blurb', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -95,6 +114,7 @@ class Post {
 
         $userid = $filteredUserID;
         $title = $filteredTitle;
+        $category = $filteredCategory;
         $blurb = $filteredBlurb;
         $content = $filteredContent;
         $rating = $filteredRating;
@@ -107,9 +127,10 @@ class Post {
 
     public static function add() {
         $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Blurb, MainImage, Content, DifficultyRating) VALUES (:userid, :title, :blurb, :mainimage, :content, :rating)");
+        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating) VALUES (:userid, :title, :blurb, :mainimage, :content, :rating)");
         $req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
+        $req->bindParam(':category', $category);
         $req->bindParam(':blurb', $blurb);
         $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
@@ -123,6 +144,9 @@ class Post {
         if (isset($_POST['title']) && $_POST['title'] != "") {
             $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         }
+        if (isset($_POST['category']) && $_POST['category'] != "") {
+            $filteredCategory = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
         if (isset($_POST['blurb']) && $_POST['blurb'] != "") {
             $filteredBlurb = filter_input(INPUT_POST, 'blurb', FILTER_SANITIZE_SPECIAL_CHARS);
         }
@@ -135,6 +159,7 @@ class Post {
 
         $userid = $filteredUserID;
         $title = $filteredTitle;
+        $category = $filteredCategory;
         $blurb = $filteredBlurb;
         $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
         $content = $filteredContent;
