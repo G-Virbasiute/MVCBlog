@@ -187,7 +187,7 @@ class Post {
         }
 
         $tempFile = $_FILES[self::InputKey]['tmp_name'];
-        $path = __DIR__ . "../../views/images/blogpics/";
+        $path = __DIR__ . "views/images/blogpics/";
         $destinationFile = $path . $name . '.jpeg';
 
         if (!move_uploaded_file($tempFile, $destinationFile)) {
