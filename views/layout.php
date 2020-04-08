@@ -80,7 +80,7 @@ session_start();
                             // only display menu options if user is logged in
                             if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {                            
                                 echo '<a class="dropdown-item" href="?controller=user&action=logOut" style="font-size: 30px;">Log out</a>';
-                                echo '<a class="dropdown-item" href="#" style="font-size: 30px;">Your dashboard</a>';
+                                echo '<a class="dropdown-item" href="?controller=dashboard&action=read" style="font-size: 30px;">Your dashboard</a>';
                                 }
                             ?>
                         </div>
