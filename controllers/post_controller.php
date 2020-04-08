@@ -1,5 +1,6 @@
 <?php
-
+ include 'models/comment.php';
+ 
 class PostController {
     public function readAll() {
       // we store all the posts in a variable
@@ -16,7 +17,9 @@ class PostController {
       try{
       // we use the given id to get the correct post
       $post = Post::find($_GET['id']);
+      $comments = Comment::postComment($_GET['id']);
       require_once('views/posts/read.php');
+      require_once('views/comments/postComment.php');
       }
  catch (Exception $ex){
      return call('pages','error');

@@ -3,7 +3,7 @@
 
 class CommentController {
 
-    public function postComment() {
+    public static function postComment() {
         
        if (!isset($_GET['id']))
             return call ('pages', 'error');
