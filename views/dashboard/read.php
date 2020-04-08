@@ -3,7 +3,7 @@
     <tr>
         <td><h2>Welcome <?php echo $_SESSION['username']?>!</h2><br>
         
-<p>Here's the place for you to manage your info, as well as other posts and user's</p>
+<p>Here's the place for you to manage your info, posts and events</p>
 </div>
 
 <div class="row">
@@ -18,7 +18,6 @@
   <tr>
     <td>
         <p><b>Manage Users Details and Accounts</b></p>
-        <p>This will have an option to remove users - maybe a drop-down of all users and a delete button?</p>
     </td>
   </tr>
 </table>
@@ -29,13 +28,11 @@
   <tr>
     <td>
         <p><b>Manage Posts</b></p>
-        <p>Ability to remove others posts here</p>
     </td>
   </tr>
   <tr>
     <td>
-        <p><b>Create a Post</b></p>
-        <p>This will have a button to a form to create a new blog-post</p>
+        <a href="?controller=post&action=create"<?php echo $_SESSION['username'] ?>">Create a Post</a>
     </td>
   </tr>
 </table>
