@@ -1,9 +1,7 @@
 <center>
-<h3>This is a user dashboard</h3>
 <table>
     <tr>
-        <td><h2>Welcome <?php echo $_SESSION['username']?>!</h2></p><br></div>
-
+        <td><h2>Welcome <?php echo $_SESSION['username']?>!</h2><br>
         
 <p>Here's the place for you to manage your info, as well as other posts and user's</p>
 </div>
@@ -14,8 +12,7 @@
     <table>
   <tr>
       <td>
-          <p><b>Your Details</b></p>
-          <p>This will pull info about the member from the database</p>
+          <a href="?controller=user&action=readUser&username=<?php echo $_SESSION['username'] ?>">View Your Details</a>
       </td>
   </tr>
   <tr>
@@ -29,12 +26,6 @@
   <div class="column" style="background-color:#bbb;">
       <h2><font color='purple'>Posts</font></h2>
     <table>
-  <tr>
-      <td>
-          <p><b>Favourite Posts</b></p>
-          <p>This will show random posts on a carousel to click on and read</p>
-      </td>
-  </tr>
   <tr>
     <td>
         <p><b>Manage Posts</b></p>
@@ -58,17 +49,3 @@
 </table>
 </center>
 
-<!--
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Life's a Stitch</title>
-    </head>
-    <body>
-        
-
-
-       
-        
-    </body>
-</html>-->

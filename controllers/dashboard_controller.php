@@ -4,7 +4,6 @@
 //'delete', 'createPost', 'updateDetails', 'deletePost'
 class DashboardController {
     public function read() {
-      $categories = Category::all();
       require_once('views/dashboard/read.php');
     }
 
