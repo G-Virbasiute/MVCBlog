@@ -126,20 +126,20 @@ class User {
     const AllowedTypes = ['image/jpeg', 'image/jpg'];
     const InputKey = 'profilepic';
 
-    //die() function calls replaced with trigger_error() calls
+
     //replace with structured exception handling
     public static function uploadFile(string $name) {
 
         if (empty($_FILES[self::InputKey])) {
-            trigger_error("File Missing!");
+            trigger_error("Please select a profile picture");
         }
 
         if ($_FILES[self::InputKey]['error'] > 0) {
-            trigger_error("Handle the error! " . $_FILES[InputKey]['error']);
+            trigger_error("There was a problem uploading your profile picture. Please go to your dashboard to upload a picture." . $_FILES[self::InputKey]['error']);
         }
 
         if (!in_array($_FILES[self::InputKey]['type'], self::AllowedTypes)) {
-            trigger_error("Handle File Type Not Allowed: " . $_FILES[self::InputKey]['type']);
+            trigger_error("File Type Not Allowed: " . $_FILES[self::InputKey]['type']);
         }
 
         $tempFile = $_FILES[self::InputKey]['tmp_name'];
@@ -147,13 +147,17 @@ class User {
         $destinationFile = $path . $name . '.jpeg';
 
         if (!move_uploaded_file($tempFile, $destinationFile)) {
-            trigger_error("Handle Error");
+            trigger_error("Your profile picture could not be saved. Please go to your dashboard to upload a picture.");
         }
 
         //Clean up the temp file
         if (file_exists($tempFile)) {
             unlink($tempFile);
         }
+        
+        //Direct newly registered user to login page
+        return call('user', 'authUser');
+        
     }
 
     public static function remove($username) {
@@ -165,4 +169,37 @@ class User {
         $req->execute(array('username' => $username));
     }
 
+    
+        public static function logIn($username, $password) {
+            $db = Db::getInstance();
+            $stmt = $db->prepare("SELECT * FROM USER_TABLE WHERE Username = ?"); 
+            $stmt->execute([$username]);
+            $user = $stmt->fetch();
+
+        if (password_verify($password, $user['Password'])) {
+            //session_regenerate_id();
+            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['username'] = filter_input(INPUT_POST, 'username');
+            $_SESSION["uid"] = $user['UserID'];
+            return call('pages', 'home');
+            
+            } else {
+            // Display an error message if password is not valid
+            echo "Your logon details have not been recognised";
+            }
+        }
+
+    
+    public static function lOut(){
+        // Unset all of the session variables
+        $_SESSION = array();
+ 
+        // Destroy the session.
+        session_destroy();
+ 
+        // Redirect to home page
+        return call('pages', 'home');
+        exit;
+    }
+    
 }

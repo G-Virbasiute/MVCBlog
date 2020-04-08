@@ -18,6 +18,7 @@ session_start();
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
         <link href="views/css/carouselcss.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/post.css" rel="stylesheet" type="text/css"/>
+        <link href="views/css/auth.css" rel="stylesheet" type="text/css"/>
         <script language="JavaScript">
            function comment(strChoice) {
                event.preventDefault();
@@ -70,9 +71,18 @@ session_start();
                             Members Portal
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="?controller=user&action=createUser" style="font-size: 30px;">Sign up</a>
-                            <a class="dropdown-item" href="#" style="font-size: 30px;">Log in</a>
-                            <a class="dropdown-item" href="#" style="font-size: 30px;">Your dashboard</a> <!-- Only accessible after someone has logged in-->
+                            <?PHP            
+                            // only display menu options if user is logged in
+                            if (!isset($_SESSION["loggedin"])){  
+                                echo '<a class="dropdown-item" href="?controller=user&action=createUser" style="font-size: 30px;">Sign up</a>';
+                                echo '<a class="dropdown-item" href="?controller=user&action=authUser" style="font-size: 30px;">Log in</a>';
+                            }       
+                            // only display menu options if user is logged in
+                            if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {                            
+                                echo '<a class="dropdown-item" href="?controller=user&action=logOut" style="font-size: 30px;">Log out</a>';
+                                echo '<a class="dropdown-item" href="#" style="font-size: 30px;">Your dashboard</a>';
+                                }
+                            ?>
                         </div>
                     </li>
                 </ul>

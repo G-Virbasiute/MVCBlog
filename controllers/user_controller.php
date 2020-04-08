@@ -31,9 +31,7 @@ class UserController {
       }
       else { 
             User::adduser();
-             
-            $users = User::all(); //$users is used within the view
-            require_once('views/users/readallusers.php');
+            call('user', 'authUser');
       }
       
     }
@@ -63,9 +61,53 @@ class UserController {
             $users = User::all();
             require_once('views/users/readallusers.php');
       }
+    
       
-    }
+        
+    public function authUser() {
+
+        // Check if the user is already logged in, if yes then redirect them to home page
+        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+            return call('pages', 'home');
+            exit;
+        }
+            
+        // Expects a url of form ?controller=users&action=authUser
+        // If it's a GET request display the login form
+
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+            require_once('views/pages/login.php');
+            }
+            
+        // If it's a POST request, sanitise the input and pass the details to be authenticated           
+            else { 
+                if(isset($_POST['username'])&& $_POST['username']!=""){
+                $filteredUsername = filter_input(INPUT_POST,'username', FILTER_SANITIZE_SPECIAL_CHARS);
+                }
+    
+                if(isset($_POST['password'])&& $_POST['password']!=""){
+                $filteredPassword = (filter_input(INPUT_POST,'password', FILTER_SANITIZE_SPECIAL_CHARS));
+                }
+            
+                $username = $filteredUsername;
+                $password = $filteredPassword;
+                
+            User::logIn($username, $password);
+            
+            }
+      }
+      
+      
+    public function logOut() {
+            
+            User::lOut();
+            
+            }
+      
+      
+    }  
+
   
 
-    
+   
 

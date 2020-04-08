@@ -1,0 +1,21 @@
+    <body style="font-family: 'Amatic SC', cursive; font-size: 30px;">
+        <div class="wrapper" style=width:350px;padding:20px;>
+            <form action="" method="post">
+                <div>
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" autocomplete='off' required>
+                </div>    
+                <div>
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info" value="Login">
+                </div>
+            </form>
+        </div>
+        <p style="padding-left:20px;">Don't have an account? <a href="?controller=user&action=createUser">Sign up now</a>.</p>
+    </body>
+</html>
+
