@@ -1,7 +1,26 @@
+
+<body style="font-family: 'Amatic SC', cursive; font-size: 30px;">
 <p>Fill in the following form to update an existing blog post:</p>
 <form action="" method="POST" class="w3-container" enctype="multipart/form-data">
     <h2>Update Blog Post</h2>
 
+    <div class="form-group">
+        <label>Update Blog Picture</label></br>
+        <?php
+        $file = $post->mainimage;
+        if (file_exists($file)) {
+            $img = "<img src='$file' width='150' />";
+            echo $img;
+        } else {
+            echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
+        }
+        ?>   
+        <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+
+        <input type = "file" name = "blogpic" class = "w3-btn w3-pink" value="<?= $post->mainimage; ?>" />
+
+        <span class="help-block"></span>
+    </div>    
     <p>
         <input class="w3-input" type="text" name="userid" value="<?= $post->userid; ?>">
         <label>User ID</label>
@@ -16,23 +35,19 @@
         <label>Blurb</label>
     </p>
 
-    <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-
-    <?php
-    $file = 'views/images/' . $post->title . '.jpeg';
-    if (file_exists($file)) {
-        $img = "<img src='$file' width='150' />";
-        echo $img;
-    } else {
-        echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
-    }
-    ?>
-
     <p>
         <input class="w3-input" type="text" name="content" value="<?= $post->content; ?>" >
         <label>Content</label>
     </p>
-
+    
+    <div>
+        <label>Category:</label>
+        <select name="category" required>
+            <option value="1">Embroidery</option>
+            <option value="2">Macrame</option>
+            <option value="6">Knitting</option>
+        </select>
+    </div>
 
     <?php $default = $post->rating; ?>
 
@@ -85,7 +100,6 @@
     </p>
 
     <br/>
-    <input type = "file" name = "blogpic" class = "w3-btn w3-pink" value="<?= $post->mainimage; ?>" />
     <p>
         <input class = "w3-btn w3-gray" type = "submit" value = "Update Blog Post">
     </p>
