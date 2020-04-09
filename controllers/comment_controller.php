@@ -1,5 +1,7 @@
 <?php
 
+ include 'models/comment.php';
+ include 'models/user.php';
 
 class CommentController {
 
@@ -9,8 +11,9 @@ class CommentController {
             return call ('pages', 'error');
         
         try {
+            
             $comments = Comment::postComment($_GET['id']);
-            require_once('views/comments/postComment.php');
+                require_once('views/comments/postComment.php');
         } 
         catch (Exception $ex) {
             return call('pages', 'error');
@@ -39,7 +42,7 @@ class CommentController {
           require_once('views/comments/create.php');
       }
       else { 
-            Comment::add($_GET['id']);
+            Comment::add();
       }
       
     }

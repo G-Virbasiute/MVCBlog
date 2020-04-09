@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+
+/***PRE POPULATE CATEGOREIS***/
+$db = Db::getInstance();
+$categories = $db->prepare('SELECT * FROM POST_CATEGORY');
+$categories->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -18,19 +24,9 @@ session_start();
         <link href="views/css/carouselcss.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/post.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/auth.css" rel="stylesheet" type="text/css"/>
-        <script language="JavaScript">
-           function comment(strChoice) {
-               event.preventDefault();
-               var xmlhttp = new XMLHttpRequest();
-               xmlhttp.onreadystatechange = function () {
-                   if (this.readyState == 4 && this.status == 200) {
-                       document.getElementById("comment").innerHTML = this.responseText;
-                   }
-               };
-               xmlhttp.open("GET", "?controller=comment&action=postComment&id=" + strChoice);
-               xmlhttp.send();
-           }
-        </script>
+        <link href="views/css/comment.css" rel="stylesheet" type="text/css"/>
+
+       
                
     </head>
 <title>Life's a Stitch</title>
@@ -62,8 +58,19 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="?controller=post&action=readAll">Tutorials</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?controller=category&action=readAll">Categories</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <table>
+                                <?php foreach ($categories as $category): ?>
+                                    <tr>
+                                        <td><a class="dropdown-item" href="?controller=post&action=readCategory&id= <?= $category['CategoryID'] ?>" style="font-size: 30px;"><?= $category['Category'] ?></a></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </table>
+                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,11 +106,6 @@ session_start();
    -->
 <div class="w3-container w3-blue">
     <?php require_once('routes.php'); ?>
-</<div>
-<div class="w3-container w3-gray">
-    <footer >
-        Copyright &COPY; <?= date('Y'); ?>
-    </footer>
 </div>
   </body>
 </html>

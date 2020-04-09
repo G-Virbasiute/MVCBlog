@@ -1,5 +1,6 @@
 <?php
  include 'models/comment.php';
+ include 'models/user.php';
  
 class PostController {
     public function readAll() {
@@ -20,11 +21,27 @@ class PostController {
       $comments = Comment::postComment($_GET['id']);
       require_once('views/posts/read.php');
       require_once('views/comments/postComment.php');
+     
       }
  catch (Exception $ex){
      return call('pages','error');
  }
-    }
+ 
+    if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION["loggedin"])){
+          require_once('views/comments/create.php');
+      }
+      else if (isset($_SESSION["loggedin"])){ 
+            Comment::add($_GET['id'],$_SESSION["uid"]);
+            $post = Post::find($_GET['id']);
+            $comments = Comment::postComment($_GET['id']);
+            require_once('views/posts/read.php');
+            require_once('views/comments/postComment.php');
+            require_once('views/comments/create.php');
+     
+      }
+        
+        }
+    
     
     public function readCategory() {
         if (!isset($_GET['id']))

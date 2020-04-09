@@ -14,19 +14,11 @@
                         echo '</div>';
                     ?>
                 </div>
-                <div class="card">
-                    <button><a href="?controller=comment&action=postComment&id= <?php echo $post->postid?>"> View Comments</a></button>
+                <div style="border-top: 2px solid black; border-bottom: 2px solid black; margin-top: 10px">
+                <h1 style="margin-left: 15px"> Comments: </h1>
                 </div>
-                <div class="card">
-                    <button><a href="?controller=comment&action=create&id= <?php echo $post->postid?>"> Write a Comment</a></button>
-                </div>
-     <!--           <div class="card" id="comment">
-                    <a onclick="comment('<?php// echo $post->postid ?>')">
-                        <button>View Comments</button>
-                    </a>
-                </div>
-     -->
             </div>
+    
             <div class="rightcolumn">
                 <div class="card">
                     <h2>About the author</h2>
@@ -44,4 +36,4 @@
                     <p>Link to the author's social media page</p>
                 </div>
             </div>
-        </div> 
+        </div>

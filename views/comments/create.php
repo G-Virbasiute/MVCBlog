@@ -1,24 +1,18 @@
-<form action="" method="POST" class="w3-container" enctype="multipart/form-data">
+<div class="row">
+    <div class="rightcolumn">
+        <h3>Leave a comment:</h3>
+        <form action="" method="POST" class="w3-container" enctype="multipart/form-data">
+            <div id="comment_form" >
 
-    <h2>Leave a comment:</h2>
+                <div>
+                    <textarea rows="10" name="comment" id="comment" placeholder="Comment"></textarea>
+                </div>
+                <div>
+                    <input type="submit" name="submit" value="Add Comment">
+                </div>
 
-    <div style="width: 40%; margin-left: 50px; margin-top: 50px;">
-        <div>
-            <label>Post ID</label>
-            <input class="w3-input" type="text" name="postid" placeholder="Post ID" required autofocus>
-        </div>
-        <div>
-            <label>User ID</label>
-            <input class="w3-input" type="text" name="userid" placeholder="Your User ID" required autofocus>
-        </div>
-        <div>
-            <label>Comment</label>
-            <textarea class="w3-input" type="text" name="comment" placeholder="Your comment" row="1" required autofocus></textarea>
-        </div>
-        <p>
-            <input class="w3-btn w3-pink" type="submit" value="Comment">
-        </p>
+            </div>
+        </form>
     </div>
-    
-</form>
+</div>
 

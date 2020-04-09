@@ -18,6 +18,11 @@
         <title>Life's a Stitch</title>
     </head>
     <body>
-        
+
     </body>
+
+    <footer>
+        Copyright &COPY; <?= date('Y'); ?>
+    </footer>
+
 </html>
