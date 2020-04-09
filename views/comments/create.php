@@ -1,6 +1,6 @@
 <div class="row">
     <div class="rightcolumn">
-        <h3>Leave a comment:</h3>
+        <h3 style='margin-top: 20px'>Leave a comment:</h3>
         <form action="" method="POST" class="w3-container" enctype="multipart/form-data">
             <div id="comment_form" >
 

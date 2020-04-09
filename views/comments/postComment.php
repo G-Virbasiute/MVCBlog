@@ -6,6 +6,7 @@
                 echo '<div class="card" style="width:50%">';
                 echo '<p>' . $comment->username . ' said:</p>';
                 echo '<p>' . $comment->comment . '</p>';
+                echo '<p> Comment posted on ' . $comment->time . '</p>';
                 echo '</div>';
                 ?>
             </tr>
