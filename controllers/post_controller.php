@@ -74,6 +74,7 @@ class PostController {
 
             // we use the given id to get the correct post
             $post = Post::find($_GET['id']);
+            $username = Post::getUsername($_GET['id']);
 
             require_once('views/posts/update.php');
         }
@@ -99,7 +100,6 @@ class PostController {
         else {
             $id = $_GET['id'];
             Post::updateBlogPicture($id);
-
             $post = Post::find($_GET['id']);
             require_once('views/posts/read.php');
         }

@@ -17,8 +17,8 @@
             <p>Update the blog thumbnail picture <a href="?controller=post&action=updateBlogPicture&id=<?= $post->postid ?>">here</a></p>
         </div>    
         <p>
-            <input class="w3-input" type="text" name="userid" value="<?= $post->userid; ?>" readonly >
-            <label>User ID</label>
+            <input class="w3-input" type="text" name="username" value="<?= $username; ?>" readonly >
+            <label>Author's username</label>
         </p>
         <p>
             <input class="w3-input" type="text" name="title" value="<?= $post->title; ?>">

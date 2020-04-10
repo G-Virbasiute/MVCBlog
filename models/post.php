@@ -58,6 +58,15 @@ class Post {
         }
     }
 
+      public static function getUsername($id) {
+        $db = Db::getInstance();
+        $req = $db->prepare('SELECT Username FROM USER_TABLE WHERE UserID=:id');
+        $req->execute(array('id' => $id));
+        $username = $req->fetch();
+        return $username['Username'];
+    }
+    
+    
     public static function readCategory($id) {
         $list = [];
         $db = Db::getInstance();
@@ -73,9 +82,8 @@ class Post {
 
     public static function update($id) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update BLOG_POSTS set UserID=:userid, Title=:title, Category=:category, Blurb=:blurb, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
+        $req = $db->prepare("Update BLOG_POSTS set Title=:title, Category=:category, Blurb=:blurb, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
         $req->bindParam(':postid', $id);
-        $req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
         $req->bindParam(':blurb', $blurb);
@@ -85,9 +93,6 @@ class Post {
 
 
 // set parameters and execute
-        if (isset($_POST['userid']) && $_POST['userid'] != "") {
-            $filteredUserID = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_SPECIAL_CHARS);
-        }
         if (isset($_POST['title']) && $_POST['title'] != "") {
             $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         }
@@ -107,7 +112,6 @@ class Post {
             $filteredPostStatus = filter_input(INPUT_POST, 'poststatus', FILTER_SANITIZE_SPECIAL_CHARS);
         }
 
-        $userid = $filteredUserID;
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;
