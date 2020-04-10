@@ -17,8 +17,7 @@
             <p>Update the blog thumbnail picture <a href="?controller=post&action=updateBlogPicture&id=<?= $post->postid ?>">here</a></p>
         </div>    
         <p>
-            <input class="w3-input" type="text" name="username" value="<?= $username; ?>" readonly >
-            <label>Author's username</label>
+            Author: <?php echo $username; ?>
         </p>
         <p>
             <input class="w3-input" type="text" name="title" value="<?= $post->title; ?>">
