@@ -1,4 +1,5 @@
-<center>
+<link href="views/css/dashboard.css" rel="stylesheet" type="text/css"/>
+
 <table>
     <tr>
         <td><h2>Welcome <?php echo $_SESSION['username']?>!</h2><br>
@@ -8,7 +9,7 @@
 
 <div class="row">
   <div class="column" style="background-color:#aaa;">
-      <h2><font color='purple'>Details</font></h2>
+      <h2><font font-family: Tangerine serif; color='purple'>Details</font></h2>
     <table>
   <tr>
       <td>

@@ -43,6 +43,11 @@ $categories->execute();
   width: 200px;
   height: 200px;
   overflow-y: auto;
+  background-color: lightpink;
+}
+
+.navbar {
+    background-color: lightpink;
 }
 </style>
     <center><img style="margin-top: 10px; margin-bottom: 5px;" src="views/images/logo2.png"></center>
