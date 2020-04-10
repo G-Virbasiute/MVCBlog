@@ -38,15 +38,15 @@ class UserController {
     public function updateUser() {
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            if (!isset($_SESSION['username']))
+            if (!isset($_GET['username']))
                 return call('pages', 'error');
 
             // we use the given username to get the correct user
-            $user = User::find($_SESSION['username']);
+            $user = User::find($_GET['username']);
             require_once('views/users/updateuser.php');
         }
         else {
-            $username = $_SESSION['username'];
+            $username = $_GET['username'];
             User::update($username);
 
             $users = User::all();
@@ -57,17 +57,17 @@ class UserController {
     public function updatePicture() {
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            if (!isset($_SESSION['username']))
+            if (!isset($_GET['username']))
                 return call('pages', 'error');
             // we use the given username to get the correct user
-            $user = User::find($_SESSION['username']);
+            $user = User::find($_GET['username']);
             require_once('views/users/updatepicture.php');
         }
         else {
-            $username = $_SESSION['username'];
+            $username = $_GET['username'];
             User::updatePicture($username);
 
-            $username = User::find($_SESSION['username']);
+            $username = User::find($_GET['username']);
             require_once('views/users/readuser.php');
         }
     }
