@@ -50,6 +50,7 @@ $categories->execute();
            }
 ?>
 <style>
+
     .dropdown-menu {
         width: 200px;
         height: 200px;
@@ -63,7 +64,6 @@ $categories->execute();
         z-index: 2;
         background-color: white;
     }
-
 </style>
     <center><img style="margin-top: 10px; margin-bottom: 5px;" src="views/images/logo2.png"></center>
 
