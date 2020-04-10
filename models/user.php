@@ -51,9 +51,8 @@ class User {
 
     public static function update($username) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update USER_TABLE set ProfilePhoto=:profilephoto, FirstName=:firstname, LastName=:surname, EmailAddress=:email where Username=:username");
+        $req = $db->prepare("Update USER_TABLE set FirstName=:firstname, LastName=:surname, EmailAddress=:email where Username=:username");
         $req->bindParam(':username', $username);
-        $req->bindParam(':profilephoto', $profilephoto);
         $req->bindParam(':firstname', $firstname);
         $req->bindParam(':surname', $surname);
         $req->bindParam(':email', $emailaddress);
@@ -72,8 +71,18 @@ class User {
 
         $firstname = $filteredFirstName;
         $surname = $filteredSurname;
-        $profilephoto = 'views/images/profilepics/' . $username . '.jpeg';
         $emailaddress = $filteredEmail;
+        $req->execute();
+    }
+
+    public static function updatePicture($username) {
+        $db = Db::getInstance();
+        $req = $db->prepare("Update USER_TABLE set ProfilePhoto=:profilephoto where Username=:username");
+        $req->bindParam(':username', $username);
+        $req->bindParam(':profilephoto', $profilephoto);
+
+
+        $profilephoto = 'views/images/profilepics/' . $username . '.jpeg';
         $req->execute();
 
         User::uploadFile($username);
@@ -126,7 +135,6 @@ class User {
     const AllowedTypes = ['image/jpeg', 'image/jpg'];
     const InputKey = 'profilepic';
 
-
     //replace with structured exception handling
     public static function uploadFile(string $name) {
 
@@ -154,10 +162,9 @@ class User {
         if (file_exists($tempFile)) {
             unlink($tempFile);
         }
-        
+
         //Direct newly registered user to login page
         return call('user', 'authUser');
-        
     }
 
     public static function remove($username) {
@@ -169,12 +176,11 @@ class User {
         $req->execute(array('username' => $username));
     }
 
-    
-        public static function logIn($username, $password) {
-            $db = Db::getInstance();
-            $stmt = $db->prepare("SELECT * FROM USER_TABLE WHERE Username = ?"); 
-            $stmt->execute([$username]);
-            $user = $stmt->fetch();
+    public static function logIn($username, $password) {
+        $db = Db::getInstance();
+        $stmt = $db->prepare("SELECT * FROM USER_TABLE WHERE Username = ?");
+        $stmt->execute([$username]);
+        $user = $stmt->fetch();
 
         if (password_verify($password, $user['Password'])) {
             //session_regenerate_id();
@@ -182,24 +188,22 @@ class User {
             $_SESSION['username'] = filter_input(INPUT_POST, 'username');
             $_SESSION["uid"] = $user['UserID'];
             return call('pages', 'home');
-            
-            } else {
+        } else {
             // Display an error message if password is not valid
             echo "Your logon details have not been recognised";
-            }
         }
+    }
 
-    
-    public static function lOut(){
+    public static function lOut() {
         // Unset all of the session variables
         $_SESSION = array();
- 
+
         // Destroy the session.
         session_destroy();
- 
+
         // Redirect to home page
         return call('pages', 'home');
         exit;
     }
-    
+
 }

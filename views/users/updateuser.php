@@ -30,7 +30,7 @@
                                 echo "<img src='views/images/profilepics/anon.png' width='150' />";
                             }
                     ?>
-                 <p>Update your picture <a href=#">here</a>.</p>
+                 <p>Update your picture <a href="?controller=user&action=updatePicture"">here</a></p>
 <!--                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                 
                 <input type="file" name="profilepic" accept="image/*" class="form-control">
