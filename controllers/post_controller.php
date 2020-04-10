@@ -20,6 +20,7 @@ class PostController {
         try {
             // we use the given id to get the correct post
             $post = Post::find($_GET['id']);
+            $username = Post::getUsername($_GET['id']);
             $comments = Comment::postComment($_GET['id']);
             require_once('views/posts/read.php');
             require_once('views/comments/postComment.php');
@@ -101,6 +102,7 @@ class PostController {
             $id = $_GET['id'];
             Post::updateBlogPicture($id);
             $post = Post::find($_GET['id']);
+            $username = Post::getUsername($_GET['id']);
             require_once('views/posts/read.php');
         }
     }
