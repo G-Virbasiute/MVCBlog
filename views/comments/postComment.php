@@ -1,5 +1,9 @@
 <div class="row">
     <div class="leftcolumn">
+        
+                <div style="border-top: 2px solid black; border-bottom: 2px solid black; margin-top: 10px">
+                <h1 style="margin-left: 15px"> Comments: </h1>
+                </div>
         <?php foreach ($comments as $comment): ?>
             <tr>
                 <?php

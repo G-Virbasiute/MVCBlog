@@ -10,39 +10,35 @@ class PostController {
     }
 
     public function read() {
-      // we expect a url of form ?controller=posts&action=show&id=x
-      // without an id we just redirect to the error page as we need the post id to find it in the database
-      if (!isset($_GET['id']))
-        return call('pages', 'error');
+        // we expect a url of form ?controller=posts&action=show&id=x
+        // without an id we just redirect to the error page as we need the post id to find it in the database
+        if (!isset($_GET['id']))
+            return call('pages', 'error');
 
-      try{
-      // we use the given id to get the correct post
-      $post = Post::find($_GET['id']);
-      $comments = Comment::postComment($_GET['id']);
-      require_once('views/posts/read.php');
-      require_once('views/comments/postComment.php');
-     
-      }
- catch (Exception $ex){
-     return call('pages','error');
- }
- 
-    if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION["loggedin"])){
-          require_once('views/comments/create.php');
-      }
-      else if (isset($_SESSION["loggedin"])){ 
-            Comment::add($_GET['id'],$_SESSION["uid"]);
+        try {
+            // we use the given id to get the correct post
             $post = Post::find($_GET['id']);
             $comments = Comment::postComment($_GET['id']);
             require_once('views/posts/read.php');
             require_once('views/comments/postComment.php');
-            require_once('views/comments/create.php');
-     
-      }
-        
+        } catch (Exception $ex) {
+            return call('pages', 'error');
         }
-    
-    
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION["loggedin"])) {
+            require_once('views/posts/like.php');
+            require_once('views/comments/create.php');
+        } else if (isset($_SESSION["loggedin"])) {
+            Comment::add($_GET['id'], $_SESSION["uid"]);
+            $post = Post::find($_GET['id']);
+            $comments = Comment::postComment($_GET['id']);
+
+            require_once('views/posts/read.php');
+            require_once('views/comments/postComment.php');
+            require_once('views/comments/create.php');
+        }
+    }
+
     public function readCategory() {
         if (!isset($_GET['id']))
             return call ('pages', 'error');
@@ -100,6 +96,17 @@ class PostController {
             require_once('views/posts/readAll.php');
       }
       
+  
+    public function like() {
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+          require_once('views/posts/read.php');
+      }
+      else { 
+            Post::like($_GET['id']);
+      }
+      
+      
+    }
     }
   
 ?>

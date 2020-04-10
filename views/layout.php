@@ -25,11 +25,22 @@ $categories->execute();
         <link href="views/css/post.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/auth.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/comment.css" rel="stylesheet" type="text/css"/>
-
-       
-               
-    </head>
-<title>Life's a Stitch</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Life's a Stitch</title>
+        <script>
+            function like(id) {
+                {
+                    var xhttp;
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("like").innerHTML = this.responseText;
+                        }
+                    };
+                    window.open("loan.php?id=" + id, true);
+                }
+            }
+        </script>
   </head>
   <body>
 <?php      
@@ -39,20 +50,30 @@ $categories->execute();
            }
 ?>
 <style>
-.dropdown-menu {
-  width: 200px;
-  height: 200px;
-  overflow-y: auto;
-}
+    .dropdown-menu {
+        width: 200px;
+        height: 200px;
+        overflow-y: auto;
+    }
+
+    div.sticky {
+        position: -webkit-sticky; 
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background-color: white;
+    }
+
 </style>
     <center><img style="margin-top: 10px; margin-bottom: 5px;" src="views/images/logo2.png"></center>
 
-        <div style="border-top: 2px solid black; border-bottom: 2px solid black; ">    
+    <div class='sticky'>
+        <div style="border-top: 2px solid black; border-bottom: 2px solid black; background-color: #d3c1e6 ">    
     <nav class="navbar navbar-expand-lg navbar-light" style=" font-family: 'Amatic SC', cursive; font-size: 30px; left: 32%;">
            
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="?">Home</a>
                     </li>
                     <li class="nav-item">
@@ -95,17 +116,12 @@ $categories->execute();
             </div>
         </nav>
 </div>
+    </div>
 
-   <!-- <header class="w3-container w3-gray">
-      <a href='?'>Home</a>
-      <a href='?controller=post&action=readAll'>Posts</a>
-      <a href='?controller=post&action=create'>Add Post</a>
-      <a href='?controller=user&action=readAllUsers'>Users</a>
-      <a href='?controller=user&action=createUser'>Add User</a>
-    </header>
-   -->
-<div class="w3-container w3-blue">
+<div>
     <?php require_once('routes.php'); ?>
 </div>
+   
+<?php include_once "views/pages/footer.php"; ?>
   </body>
 </html>

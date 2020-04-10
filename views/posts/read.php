@@ -14,9 +14,13 @@
                         echo '</div>';
                     ?>
                 </div>
-                <div style="border-top: 2px solid black; border-bottom: 2px solid black; margin-top: 10px">
-                <h1 style="margin-left: 15px"> Comments: </h1>
-                </div>
+                        <div style='background-color: #d3c1e6; width: 200px; border: 5px solid black; padding: 50px; margin: 20px; text-align:center'>
+                            <div>
+                                <p style='font-size: 30px; font-family: 'Amatic SC', cursive;'><i class="fa fa-heart"></i><?php echo $post->likes?> </p>
+                            </div>
+                        </div>
+                  
+
             </div>
     
             <div class="rightcolumn">

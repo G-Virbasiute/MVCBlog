@@ -14,8 +14,9 @@ class Post {
     public $created;
     public $postviews;
     public $poststatus;
+    public $likes;
 
-    function __construct($postid, $userid, $title, $category, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus) {
+    function __construct($postid, $userid, $title, $category, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus, $likes) {
         $this->postid = $postid;
         $this->userid = $userid;
         $this->title = $title;
@@ -27,6 +28,7 @@ class Post {
         $this->created = $created;
         $this->postviews = $postviews;
         $this->poststatus = $poststatus;
+        $this->likes = $likes;
     }
 
     public static function all() {
@@ -35,7 +37,7 @@ class Post {
         $req = $db->query('SELECT * FROM BLOG_POSTS');
 // we create a list of Blog Post objects from the database results
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
         }
         return $list;
     }
@@ -44,12 +46,12 @@ class Post {
         $db = Db::getInstance();
 //use intval to make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT PostID, BLOG_POSTS.UserID, Title, POST_CATEGORY.Category, Blurb, MainImage, Content, DifficultyRating, Created, PostViews, PostStatus, USER_TABLE.Username FROM BLOG_POSTS INNER JOIN USER_TABLE ON BLOG_POSTS.UserID = USER_TABLE.UserID INNER JOIN POST_CATEGORY ON BLOG_POSTS.Category = POST_CATEGORY.CategoryID WHERE PostID = :id');
+        $req = $db->prepare('SELECT PostID, BLOG_POSTS.UserID, Title, POST_CATEGORY.Category, Blurb, MainImage, Content, DifficultyRating, Created, PostViews, PostStatus, Likes, USER_TABLE.Username FROM BLOG_POSTS INNER JOIN USER_TABLE ON BLOG_POSTS.UserID = USER_TABLE.UserID INNER JOIN POST_CATEGORY ON BLOG_POSTS.Category = POST_CATEGORY.CategoryID WHERE PostID = :id');
 //the query was prepared, now replace :id with the actual $id value
         $req->execute(array('id' => $id));
         $post = $req->fetch();
         if ($post) {
-            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Username']);
+            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['Username']);
         } else {
 //replace with a more meaningful exception
             throw new Exception("We couldn't find that blog post");
@@ -63,7 +65,7 @@ class Post {
         $req = $db->prepare('SELECT * FROM BLOG_POSTS WHERE Category = :id');
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
         }
 
         return $list;
@@ -209,6 +211,12 @@ class Post {
         $req->execute(array('id' => $id));
     }
 
+    public static function like($id) {
+        $db = Db::getInstance();
+        $id = intval($id);
+        $req = $db->prepare('UPDATE BLOG_POSTS SET Likes = Likes + 1 WHERE PostID = :id');
+        $req->execute(array('id' => $id));
+        }
 }
 
 ?>
