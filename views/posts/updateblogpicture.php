@@ -16,7 +16,7 @@
 
                 <div class = "form-group">
                     <p>
-                        <input class="w3-input" type="text" name="title" value="<?= $post->title; ?>" readonly >
+                        <input class="w3-input" type="hidden" name="title" value="<?= $post->title; ?>" readonly >
                     </p>
                     <label>Select a new picture to use as the blog thumbnail</label></br>
                     <?php
