@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Update User</title>
+        <title>Update Details</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,7 +18,8 @@
         <form action="" method="post" enctype="multipart/form-data">
             
             <div class="form-group">
-                <label>Update Profile Picture</label>
+                <p> Time for a new look?</p>
+
                     <?php 
                         $file = $user->profilePhoto;
                             if(file_exists($file)){
@@ -28,21 +29,21 @@
                             else {
                                 echo "<img src='views/images/profilepics/anon.png' width='150' />";
                             }
-                    ?>                
-                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                    ?>
+                 <p>Update your picture <a href=#">here</a>.</p>
+<!--                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                 
                 <input type="file" name="profilepic" accept="image/*" class="form-control">
 
                 <span class="help-block"></span>
                 </div>     
-            
+-->            
             <div class="form-group ">
-                <label>Update Username</label>
+                <label>Username</label>
                 <input type="text" name="username" class="form-control" value="<?= $user->username; ?>" readonly>
                 <span class="help-block">
-            </div>            
-            
-             
+            </div>               
+          
             <div class="form-group">
                 <label>Update First Name</label>
                 <input type="text" name="firstname" class="form-control"  value="<?= $user->firstName; ?>">
@@ -60,12 +61,7 @@
                 <input type="email" name="email" class="form-control" value="<?= $user->emailAddress; ?>">
                 <span class="help-block"></span>
             </div> 
- 
-
-            
-
-            
-            
+       
             <div class="form-group">
                 <input type="submit" class="btn btn-info" value="Update User">
                 <input type="reset" class="btn btn-outline-info" value="Reset">
