@@ -26,8 +26,8 @@ class PostController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION["loggedin"])) {
-            require_once('views/posts/like.php');
             require_once('views/comments/create.php');
+            
         } else if (isset($_SESSION["loggedin"])) {
             Comment::add($_GET['id'], $_SESSION["uid"]);
             $post = Post::find($_GET['id']);
@@ -98,12 +98,8 @@ class PostController {
       
   
     public function like() {
-        if($_SERVER['REQUEST_METHOD'] == 'GET'){
-          require_once('views/posts/read.php');
-      }
-      else { 
             Post::like($_GET['id']);
-      }
+            require_once('views/posts/like.php');
       
       
     }
