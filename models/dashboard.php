@@ -18,6 +18,21 @@ class Dashboard {
         $this->postviews = $postviews;
         $this->poststatus = $poststatus;
     }
+ public static function find($username) {
+        $db = Db::getInstance();
+        //use strval to make sure $username is a string
+        $username = strval($username);
+        $req = $db->prepare('SELECT * FROM USER_TABLE WHERE Username = :username');
+        //the query was prepared, now replace :username with the actual $username value
+        $req->execute(array('username' => $username));
+        $user = $req->fetch();
+        if ($user) {
+            return $user;
+//            return new User($user['UserType'], $user['Username'], $user['ProfilePhoto'], $user['FirstName'], $user['LastName'], $user['EmailAddress'], $user['Password']);
+        } else {
+            //replace with a more meaningful exception
+            throw new Exception('A real exception should go here');
+        }
+    }
 }
-
 ?>

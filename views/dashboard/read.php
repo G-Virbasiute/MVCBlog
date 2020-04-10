@@ -9,11 +9,31 @@
 
 <div class="row">
   <div class="column" style="background-color:#aaa;">
-      <h2><font font-family: Tangerine serif; color='purple'>Details</font></h2>
+      <h2><font color='purple'>Details</font></h2>
     <table>
-  <tr>
+  <tr>      
       <td>
-          <a href="?controller=user&action=readUser&username=<?php echo $_SESSION['username'] ?>">View Your Details</a>
+          <p>User Details:</p>
+
+<?php 
+$file = $username['ProfilePhoto'];
+if(file_exists($file)){
+    $img = "<img src='$file' width='150' />";
+    echo $img;
+}
+else
+{
+echo "<img src='views/images/profilepics/anon.png' width='150' />";
+}
+
+?>
+
+<p>Username: <?php echo $username['Username']; ?></p>
+<p>Name: <?php echo $username['FirstName']. ' '. $username['LastName']; ?></p>
+<p>User Type: <?php echo $username['UserType']; ?></p>
+<p>Email: <?php echo $username['EmailAddress']; ?></p>
+<p>Posts:</p>
+
       </td>
   </tr>
   <tr>
