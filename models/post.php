@@ -57,7 +57,7 @@ class Post {
             throw new Exception("We couldn't find that blog post");
         }
     }
-    
+
     public static function readCategory($id) {
         $list = [];
         $db = Db::getInstance();
@@ -73,13 +73,12 @@ class Post {
 
     public static function update($id) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update BLOG_POSTS set UserID=:userid, Title=:title, Category=:category, Blurb=:blurb, MainImage=:mainimage, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
+        $req = $db->prepare("Update BLOG_POSTS set UserID=:userid, Title=:title, Category=:category, Blurb=:blurb, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
         $req->bindParam(':postid', $id);
         $req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
         $req->bindParam(':blurb', $blurb);
-        $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
         $req->bindParam(':rating', $rating);
         $req->bindParam(':poststatus', $poststatus);
@@ -112,10 +111,27 @@ class Post {
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;
-        $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
         $poststatus = $filteredPostStatus;
+
+        $req->execute();
+    }
+
+    public static function updateBlogPicture($id) {
+        $db = Db::getInstance();
+        $req = $db->prepare("Update BLOG_POSTS set Title=:title, MainImage=:mainimage where PostID=:postid");
+        $req->bindParam(':postid', $id);
+        $req->bindParam(':title', $title);
+        $req->bindParam(':mainimage', $mainimage);
+
+// set parameters and execute
+        if (isset($_POST['title']) && $_POST['title'] != "") {
+            $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        
+        $title = $filteredTitle;
+        $mainimage = 'views/images/blogpics/' . $title . '.jpeg';
 
         $req->execute();
 
@@ -216,7 +232,8 @@ class Post {
         $id = intval($id);
         $req = $db->prepare('UPDATE BLOG_POSTS SET Likes = Likes + 1 WHERE PostID = :id');
         $req->execute(array('id' => $id));
-        }
+    }
+
 }
 
 ?>
