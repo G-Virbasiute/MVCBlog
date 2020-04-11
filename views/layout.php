@@ -100,9 +100,9 @@ $categories->execute();
                         </li>
                         <li class="navitem">
                             <div class="search-container">
-                                <form action="" method="GET">
-                                    <input type="text" name="search">
-                                    <button type="submit"><a href=" ">Submit</a></button>
+                                <form action="searchLink.php" method="GET">
+                                    <input type='text' name='search'>
+                                    <button type="submit">Submit</a></button>
                                 </form>
                             </div>
                         </li>
