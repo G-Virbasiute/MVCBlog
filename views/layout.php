@@ -1,12 +1,9 @@
-<?php
-session_start();
+<?php session_start();
 
-
-/***PRE POPULATE CATEGOREIS***/
+/***PRE POPULATE CATEGORIES***/
 $db = Db::getInstance();
 $categories = $db->prepare('SELECT * FROM POST_CATEGORY');
 $categories->execute();
-
 ?>
 
 <!DOCTYPE html>
