@@ -58,15 +58,25 @@ class Post {
         }
     }
 
-      public static function getUsername($id) {
+    public static function search($search) {
+        $list = [];
+        $db = Db::getInstance();
+        $req = $db->query("SELECT * FROM BLOG_POSTS WHERE CONCAT (Title, Blurb, Content) REGEXP '$search'");
+        foreach ($req->fetchAll() as $post) {
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
+        }
+
+        return $list;
+    }
+
+    public static function getUsername($id) {
         $db = Db::getInstance();
         $req = $db->prepare('SELECT Username FROM USER_TABLE WHERE UserID=:id');
         $req->execute(array('id' => $id));
         $username = $req->fetch();
         return $username['Username'];
     }
-    
-    
+
     public static function readCategory($id) {
         $list = [];
         $db = Db::getInstance();
@@ -133,7 +143,7 @@ class Post {
         if (isset($_POST['title']) && $_POST['title'] != "") {
             $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        
+
         $title = $filteredTitle;
         $mainimage = 'views/images/blogpics/' . $title . '.jpeg';
 
