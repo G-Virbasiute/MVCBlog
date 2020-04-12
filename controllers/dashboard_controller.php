@@ -3,12 +3,22 @@
 //'delete', 'createPost', 'updateDetails', 'deletePost'
 class DashboardController {
     public function read() {
-//         if (!isset($_GET['mariaflan']))
-//        return call('pages', 'error');
-      // we use the given username to get the correct post
-//      $username = User::find($_GET['username']);
-      $username = Dashboard::find($_SESSION['username']);  
+
+      $username = Dashboard::find($_SESSION['username']);
+      $usertype = Dashboard::getUserType($_SESSION['uid']);
+      
+      
+    if($usertype == 'Member') {
       require_once('views/dashboard/read.php');
     }
+    elseif ($usertype == 'Writer'){
+        require_once('views/dashboard/writer_dashboard.php');
+    }
+    elseif ($usertype == 'Admin'){
+        require_once('views/dashboard/admin_dashboard.php');
+    }
+    else {
+        return call('pages', 'error');
+    }
 }
-
+}

@@ -1,11 +1,9 @@
-<!--member dashboard-->
-
 <link href="views/css/dashboard.css" rel="stylesheet" type="text/css"/>
 
 <table>
     <tr>
         <td><h2>Welcome <?php echo $_SESSION['username']?>!</h2><br>
-            
+        
 <p>Here's the place for you to manage your info, posts and events</p>
 </div>
 
@@ -44,6 +42,11 @@ echo "<img src='views/images/profilepics/anon.png' width='150' />";
 
       </td>
   </tr>
+  <tr>
+    <td>
+        <p><b>Manage Users Details and Accounts</b></p>
+    </td>
+  </tr>
 </table>
   </div>
   <div class="column" style="background-color:#bbb;">
@@ -69,4 +72,5 @@ echo "<img src='views/images/profilepics/anon.png' width='150' />";
     </tr>
 </table>
 </center>
+
 

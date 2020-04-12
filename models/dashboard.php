@@ -34,5 +34,16 @@ class Dashboard {
             throw new Exception('A real exception should go here');
         }
     }
+    
+    public static function getUserType($id) {
+        $db = Db::getInstance();
+        $req = $db->prepare('SELECT UserType FROM USER_TABLE WHERE UserID=:id');
+        $req->execute(array('id' => $id));
+        $usertype = $req->fetch();
+        return $usertype['UserType'];
+    }
 }
+
+
+
 ?>
