@@ -13,4 +13,8 @@ class PagesController {
       require_once('views/pages/error.php');
     }
     
+    public function contact() {
+        require_once('views/pages/contact.php');
+    }
+    
 }

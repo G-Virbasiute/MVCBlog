@@ -115,7 +115,6 @@ $categories->execute();
     <div>
         <?php require_once('routes.php'); ?>
     </div>
-
     <?php include_once "views/pages/footer.php"; ?>
 </body>
 </html>
