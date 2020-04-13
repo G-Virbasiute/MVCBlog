@@ -167,4 +167,23 @@ class UserController {
     }
     
     
+    public function resetPassword() {
+        //If it's a get request display the new password form
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            require_once('views/auth/resetpassword.php');
+        }
+        
+        // If it's a POST request, sanitise the input and pass the user id and new password to the resetPW function           
+        else {
+            $username = $_SESSION['username'];
+                        
+            if (isset($_POST['password']) && $_POST['password'] != "") {
+                $filteredPassword = (filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS));
+            }
+
+            $password = password_hash($filteredPassword, PASSWORD_DEFAULT);
+
+            User::resetPW($username, $password);
+        }
+    }
 }
