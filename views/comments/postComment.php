@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style='margin-right: 10px; margin-left: 10px'>
     <div class="leftcolumn">
         
                 <div style="border-top: 2px solid black; border-bottom: 2px solid black; margin-top: 10px">

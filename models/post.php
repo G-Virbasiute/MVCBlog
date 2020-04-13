@@ -152,10 +152,10 @@ class Post {
         Post::uploadFile($title);
     }
 
-    public static function add() {
+    public static function add($userid) {
         $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating) VALUES (:userid, :title, :category, :blurb, :mainimage, :content, :rating)");
-        $req->bindParam(':userid', $userid);
+        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating, Created) VALUES ($userid, :title, :category, :blurb, :mainimage, :content, :rating, SYSDATE())");
+        //$req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
         $req->bindParam(':blurb', $blurb);
@@ -165,9 +165,9 @@ class Post {
 
 
 // set parameters and execute
-        if (isset($_POST['userid']) && $_POST['userid'] != "") {
-            $filteredUserID = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_SPECIAL_CHARS);
-        }
+        //if (isset($_POST['userid']) && $_POST['userid'] != "") {
+        //   $filteredUserID = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_SPECIAL_CHARS);
+        //}
         if (isset($_POST['title']) && $_POST['title'] != "") {
             $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         }
@@ -184,7 +184,7 @@ class Post {
             $filteredRating = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_SPECIAL_CHARS);
         }
 
-        $userid = $filteredUserID;
+        //$userid = $filteredUserID;
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;

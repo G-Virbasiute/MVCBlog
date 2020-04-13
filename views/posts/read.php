@@ -1,5 +1,10 @@
-<div class="row">
-    <div class="leftcolumn">
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0"></script>
+
+
+<div class="row" style='margin-right: 10px; margin-left: 10px'>
+    <div class="leftcolumn" >
         <div class="card">
             <?php
             echo '<div>';
@@ -13,11 +18,27 @@
             echo '</div>';
             ?>
         </div>
-        <div style='background-color: #d3c1e6; width: 200px; border: 5px solid black; padding: 50px; margin: 20px; text-align:center'>
-            <div>
-                <p style='font-size: 30px; font-family: 'Amatic SC', cursive;'><a style='color: red' href='?controller=post&action=like&id=<?php echo $post->postid ?>' onclick='alert("You have liked the post!\nClick OK to go back home.")' ><i class="fa fa-heart"></i></a><?php echo $post->likes ?> </p>
-            </div>
+        <div class="card">
+            <?php 
+                echo '<div class="fb-share-button" data-href="https://lifesastitch.uk/mvcindex.php?controller=post&action=read&id=' . $post->postid .'" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=lifesastitch.uk/mvcindex.php?controller=post&action=read&id=' . $post->postid .'"  class="fb-xfbml-parse-ignore">Share</a></div>';
+            ?>
         </div>
+        
+                <?php
+        if (isset($_SESSION["loggedin"])) {
+            echo '<div style="background-color: #d3c1e6; width: 200px; border: 5px solid black; padding: 50px; margin: 20px; text-align:center">';
+            echo '<div>';
+            echo '<p style="font-size: 30px; font-family: "Amatic SC", cursive;"><a style="color: red" href="?controller=post&action=like&id=' .  $post->postid . '" onclick="pop()"><i class="fa fa-heart"></i></a>' . $post->likes . '</p>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo '<div style="background-color: #d3c1e6; width: 200px; border: 5px solid black; padding: 50px; margin: 20px; text-align:center">';
+            echo '<div>';
+            echo '<p style="font-size: 30px; font-family: "Amatic SC", cursive;"><a style="color: red"><i class="fa fa-heart"></i></a>' .  $post->likes . '</p>';
+            echo '</div>';
+            echo '</div>';
+        }
+        ?>
 
 
     </div>
@@ -40,3 +61,9 @@
         </div>
     </div>
 </div>
+
+<script>
+            function pop() {
+                alert("You have liked the post!\nClick OK to go back home.");
+            }
+        </script>

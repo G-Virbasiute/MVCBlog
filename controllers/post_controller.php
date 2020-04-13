@@ -20,7 +20,7 @@ class PostController {
         try {
 // we use the given id to get the correct post
             $post = Post::find($_GET['id']);
-            $username = Post::getUsername($_GET['id']);
+            $username = Post::getUsername($post->userid);
             $comments = Comment::postComment($_GET['id']);
             require_once('views/posts/read.php');
             require_once('views/comments/postComment.php');
@@ -74,7 +74,7 @@ class PostController {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             require_once('views/posts/create.php');
         } else {
-            Post::add();
+            Post::add($_SESSION["uid"]);
 
             $posts = Post::all(); //$posts is used within the view
             require_once('views/posts/readAll.php');
