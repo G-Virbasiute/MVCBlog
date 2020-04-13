@@ -14,7 +14,7 @@ class DashboardController {
     elseif ($usertype == 'Writer'){
         require_once('views/dashboard/writer_dashboard.php');
     }
-    elseif ($usertype == 'Admin'){
+    elseif ($usertype == 'Administrator'){
         require_once('views/dashboard/admin_dashboard.php');
     }
     else {
