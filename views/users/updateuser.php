@@ -11,9 +11,10 @@
         <link href="carouselcss.css" rel="stylesheet" type="text/css"/>
     </head>
     <body style="font-family: 'Amatic SC', cursive; font-size: 30px;">
-
+        <p style="padding-left:20px;padding-top:20px;">Here's where you can update your details...</p>
 
         <div class="wrapper" style="width:350px;padding-left:20px;padding-top:20px;">
+
 
             <form action="" method="post" enctype="multipart/form-data">
 
@@ -30,13 +31,9 @@
                     }
                     ?>
                     <p>Update your picture <a href="?controller=user&action=updatePicture&username=<?=$user->username?>">here</a></p>
-   <!--                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                   
-                   <input type="file" name="profilepic" accept="image/*" class="form-control">
    
-                   <span class="help-block"></span>
-                   </div>     
-                    -->            
+                    <p>You can update your password <a href="?controller=user&action=resetPassword">here</a></p>
+   
                     <div class="form-group ">
                         <label>Username</label>
                         <input type="text" name="username" class="form-control" value="<?= $user->username; ?>" readonly>

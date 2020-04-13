@@ -1,15 +1,12 @@
 <body style="font-family: 'Amatic SC', cursive; font-size: 30px;">
         
- <p style="padding-left:20px;padding-top:20px;">Time to choose a new password...</p>
+ <p style="padding-left:20px;padding-top:20px;">Reset your password here...</p>
     <div class="wrapper" style="width:350px;padding-left:20px;padding-top:20px;">
         
         <form action="" method="post">
-        
-            <input type="hidden" name="selector" value="<?php echo $selector;?>">
-            <input type="hidden" name="validator" value="<?php echo $validator;?>">
-       
+                      
             <div class="form-group">
-                <label>Enter New Password</label>
+                <label>Password</label>
                 <input type="password" id="psw" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                 <span class="help-block"></span>
@@ -25,18 +22,18 @@
             
             
             <div class="form-group">
-                <label>Confirm New Password</label>
+                <label>Confirm Password</label>
                 <input type="password" id="conf-psw"name="confirm_password" class="form-control">
                 <span class="help-block"></span>
             </div>
             
             
             <div class="form-group">
-                <input type="submit" class="btn btn-info" name="reset-password-submit" value="Set Password" onclick="return Validate()">
-
+                <input type="submit" class="btn btn-info" value="Reset Password" onclick="return Validate()">
             </div>
         </form>
     </div>    
+    
     
 <script>
 var myInput = document.getElementById("psw");
@@ -106,7 +103,9 @@ myInput.onkeyup = function() {
         }
         return true;
     }
-     
     
-
+     
 </script>
+
+</body>
+

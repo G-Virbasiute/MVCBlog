@@ -298,4 +298,24 @@ class User {
    
     }
     
+    
+        public static function resetPW($username, $password) {
+            
+            $db = Db::getInstance();
+            $stmt = $db->prepare("UPDATE USER_TABLE SET password = :password WHERE Username = :username");
+            $stmt->bindParam(':password', $password);            
+            $stmt->bindParam(':username', $username);
+            if ($stmt->execute()){
+                // Password updated successfully. Destroy the session, and redirect to login page
+                session_unset();
+                session_destroy();
+                //call('user', 'authUser');
+                echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;">Your password\'s been reset! You can log back in <a href="?controller=user&action=authUser">here</a>.</p>';
+                exit();
+            } 
+            else{
+                echo "Something's gone wrong here. Please try again later.";
+            }
+        
+        }
 }
