@@ -91,7 +91,7 @@ class UserController {
         // If it's a GET request display the login form
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            require_once('views/pages/login.php');
+            require_once('views/auth/login.php');
         }
 
         // If it's a POST request, sanitise the input and pass the details to be authenticated           
@@ -115,5 +115,56 @@ class UserController {
 
         User::lOut();
     }
+    
+    
+    public function forgotPassword() {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            require_once('views/auth/forgotpassword.php');
+        }
 
+        // If it's a POST request, sanitise the input and pass the details to be authenticated           
+        else {
+            if (isset($_POST['email']) && $_POST['email'] != "") {
+                $filteredEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+
+            $email = $filteredEmail;
+
+            User::genToken($email);
+        }
+        
+    }
+    
+    
+    public function createNewPassword() {
+        // This function is invoked when a user clicks on password reset link that's been sent to them via email
+        // If it's a GET request, capture the token information and display the create new password form
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            if (isset($_GET['selector']) && $_GET['selector'] != "") {
+                $selector = $_GET['selector'];
+            }
+ 
+            if (isset($_GET['validator']) && $_GET['validator'] != "") {
+                $validator = $_GET['validator'];
+            }
+
+            require_once('views/auth/createnewpassword.php');
+        }
+        
+        // If it's a post request pass the details through to the setNewPassword function
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if (isset($_POST["reset-password-submit"])){
+                    $selector = $_POST["selector"];
+                    $validator = $_POST["validator"];
+                    $password = $_POST["password"];
+                    $passwordRepeat = $_POST["confirm_password"];
+                }
+                                
+            User::setNewPassword($selector, $validator, $password);
+            
+        }
+    
+    }
+    
+    
 }

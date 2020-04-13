@@ -25,7 +25,7 @@
 // for validation we list the allowed controllers and their actions
 // Add an entry for each new controller and its actions
 $controllers = array('pages' => ['home', 'error'],
-                    'user' => ['readAllUsers','readUser','createUser','updateUser','updatePicture', 'deleteUser', 'authUser', 'logOut'],
+                    'user' => ['readAllUsers','readUser','createUser','updateUser','updatePicture', 'deleteUser', 'authUser', 'logOut', 'forgotPassword', 'createNewPassword'],
                     'post' => ['readAll', 'read', 'search', 'readCategory', 'create', 'update', 'updateBlogPicture', 'delete', 'like'],
                     'category' => ['readAll', 'read', 'create', 'update', 'delete'],
                     'comment' => ['postComment', 'userComment', 'create', 'delete'],

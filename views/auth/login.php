@@ -15,7 +15,12 @@
                 </div>
             </form>
         </div>
-        <p style="padding-left:20px;">Don't have an account? <a href="?controller=user&action=createUser">Sign up now</a>.</p>
+        
+        <p style="padding-left:20px;">
+            Don't have an account? <a href="?controller=user&action=createUser">Sign up now</a>.<br>
+            <a href="?controller=user&action=forgotPassword">Forgot Your Password?</a>  
+        </p>
+        
     </body>
 </html>
 

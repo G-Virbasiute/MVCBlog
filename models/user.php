@@ -206,4 +206,96 @@ class User {
         exit;
     }
 
+    
+    public static function genToken($email){
+        //Generates a token
+        $selector = bin2hex(random_bytes(8));
+        $token = random_bytes(32);
+        
+        //Creates a link to the create password page with the token appended
+        //***EDIT THE URL TO MATCH YOUR NETBEANS PROJECT NAME***
+        $url = "http://localhost/LASLoginRevamp/mvcindex.php?controller=user&action=createNewPassword&selector=" . $selector . "&validator=" . bin2hex($token);
+        
+        //Sets token expiry to 1hr (in seconds) from now
+        $expires = date("U") + 1800;
+            
+        $db = Db::getInstance(); 
+        //Deletes any old tokens associated with the user's email from the db
+        $stmt = $db->prepare("DELETE FROM PWD_RESET WHERE pwdResetEmail=?");
+        $stmt->execute([$email]);
+        //New token is associated with the user's email address and stored it in the db
+        $stmt2 = $db->prepare("INSERT INTO PWD_RESET (pwdResetEmail, pwdResetSelector, pwdResetToken, pwdResetExpires) VALUES (:email, :selector, :token, :expires)");
+        $hashedToken = password_hash($token,PASSWORD_DEFAULT);
+        $stmt2->bindParam(':email', $email);
+        $stmt2->bindParam(':selector', $selector);
+        $stmt2->bindParam(':token', $hashedToken);
+        $stmt2->bindParam(':expires', $expires);
+        $stmt2->execute();
+        
+        //Emails a password reset link to the user
+        $to = $email;
+        $subject = 'Reset your password for Life\'s A Stitch';
+        $message = '<p>We received a password reset request for your Life\'s A Stitch account. Here\'s the link to reset your password....</p>';
+        $message .= '<a href="' . $url . '">' . $url . '</a></p>';
+        $message .= '<p>If you didn\'t make this request you can ignore this email.';        
+        $message .= '<p>Hope to see you soon!<br>';
+        $message .= '<p>Love from,<br>';
+        $message .= '<p>Life\'s A Stitch x<br>';
+        
+        $headers = "From: Life's A Stitch <info@lifesastitch.uk>\r\n";
+        $headers .= "Reply-To: info@lifesastitch.uk\r\n";
+        $headers .= "Content-type: text/html\r\n";
+            
+        mail($to, $subject, $message, $headers);
+        
+        //Tell user to check their email
+        //require_once('views/auth/forgotpassword.php?reset=success');
+        echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;">We got this! Please check your email for a password reset link...</p>';
+              
+    }
+        
+        
+    public static function setNewPassword($selector, $validator, $password) {
+        //Initiated by the forgotten password feature
+        $currentDate = date("U");
+        $db = Db::getInstance();
+        //Checks that the token is present in the db and hasn't expired
+        $req = $db->prepare("SELECT * FROM PWD_RESET WHERE pwdResetSelector = :selector AND pwdResetExpires >= :currentdate");
+        $req->bindParam(':selector', $selector);
+        $req->bindParam(':currentdate', $currentDate);
+        $req->execute();
+        $result = $req->fetch(PDO::FETCH_ASSOC);
+        
+        $tokenBin = hex2bin($validator);
+        $tokenCheck = password_verify($tokenBin, $result["pwdResetToken"]);
+            if ($tokenCheck === false) {
+                echo "You need to resubmit your reset request";
+                exit();
+            } 
+            elseif ($tokenCheck === true) {
+                $tokenEmail = $result['pwdResetEmail'];
+                $db = Db::getInstance();
+                //Uses the email address to fetch the relevant user info from the db
+                $req = $db->prepare("SELECT * FROM USER_TABLE WHERE EmailAddress = :email");
+                $req->bindParam(':email', $tokenEmail);
+                $req->execute();
+            
+                $result = $req->fetch(PDO::FETCH_ASSOC);
+                //Updates the db with the new password
+                $stmt = $db->prepare("UPDATE USER_TABLE SET Password = :password WHERE EmailAddress = :email");
+                $newPwdHash =  password_hash($password, PASSWORD_DEFAULT);
+                $stmt->bindParam(':password', $newPwdHash);
+                $stmt->bindParam(':email', $tokenEmail);
+                $stmt->execute();
+                //Deletes the used token from the db
+                $stmt = $db->prepare("DELETE FROM PWD_RESET WHERE pwdResetEmail = :email");
+                $stmt->bindParam(':email', $tokenEmail);
+                $stmt->execute();
+                //Links the user back to the login page
+                echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;"><a href="?controller=user&action=authUser">Return to login page</a></p>';
+                //require_once('views/pages/login.php');
+            }  
+   
+    }
+    
 }
