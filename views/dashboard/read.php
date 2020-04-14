@@ -8,13 +8,6 @@
             
 <p>Here's the place for you to manage your info, posts and events</p>
 </div>
-
- <?php
-        if (isset($_SESSION['loggedin'])) {
-            echo'<p>Welcome home, ' . $_SESSION['username'] . '!</p><br></div>';
-        }
-        ?>
-
 <div class="row">
   <div class="column" style="background-color:#aaa;">
       <h2><font color='purple'>Details</font></h2>
@@ -44,21 +37,19 @@ echo "<img src='views/images/profilepics/anon.png' width='150' />";
 
       </td>
   </tr>
+  <tr>
+    <td>
+        <p><a href="?controller=user&action=updateUser&username=<?php echo $_SESSION['username'] ?>">Update your details</a></p>
+    </td>
+  </tr>
 </table>
   </div>
   <div class="column" style="background-color:#bbb;">
       <h2><font color='purple'>Posts</font></h2>
     <table>
-  <tr>
-    <td>
-        <p><b>Manage Posts</b></p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <a href="?controller=post&action=create"<?php echo $_SESSION['username'] ?>">Create a Post</a>
-    </td>
-  </tr>
+        <tr>
+            <td>Favourite Posts</td>
+        </tr>
 </table>
   </div>
   <div class="column" style="background-color:#ccc;">

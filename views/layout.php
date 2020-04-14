@@ -25,8 +25,14 @@ $categories->execute();
         <link href="views/css/auth.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/comment.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="gen_validatorv4.js" type="text/javascript"></script>
         <title>Life's a Stitch</title>
-
+<script language=”JavaScript”>
+    var frmvalidator = new Validator("contactform"); 
+    frmvalidator.addValidation("name","req","Please provide your name"); 
+    frmvalidator.addValidation("email","req","Please provide your email"); 
+    frmvalidator.addValidation("email","email", "Please enter a valid email address"); 
+</script>
     </head>
     
     <body>

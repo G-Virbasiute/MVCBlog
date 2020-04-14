@@ -44,7 +44,7 @@ echo "<img src='views/images/profilepics/anon.png' width='150' />";
   </tr>
   <tr>
     <td>
-        <p><b>Manage Users Details and Accounts</b></p>
+        <p><a href="?controller=user&action=updateUser&username=<?php echo $_SESSION['username'] ?>">Update your details</a></p>
     </td>
   </tr>
 </table>

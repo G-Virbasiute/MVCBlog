@@ -17,4 +17,15 @@ class PagesController {
         require_once('views/pages/contact.php');
     }
     
+    public function thankyou(){
+        require_once('views/pages/thankyou.php');
+    }
+    
+    public function suggest() {
+        require_once('views/pages/suggest.php');
+    }
+    
+    public function privacy() {
+        require_once('views/pages/privacy.php');
+    }
 }

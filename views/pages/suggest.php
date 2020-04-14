@@ -2,12 +2,12 @@
     <div class="leftcolumn" style="width: 50%; text-align: center" >
             <h2 style='font-size: 50px; font-family: "Amatic SC", cursive;'>Send us an e-mail:</h2>
             
-            <form method="post" name="contactform" action="contact_form_handler.php"> 
+            <form method="post" name="contactform" action="contact_form_handler_suggestion.php"> 
                 Your Name: <br>
                 <input type="text" name="name"><br>
                 Email Address: <br>
                 <input type="text" name="email"><br>
-                Message:<br>
+                Suggestion:<br>
                 <textarea name="message"></textarea><br><br>
                 <input type="submit" value="Submit">
             </form>
@@ -22,7 +22,7 @@
     </div>
     <div class="rightcolumn" style="width: 50%" >
         <div style='font-size: 30px; font-family: "Amatic SC", cursive;'>
-            <p> Have any issues with the website? Would like to become a writer? Drop us an e-mail and we'll get back to you as soon as possible!</p></br>
+            <p> Would like a different category? More events? Drop us an e-mail and we'll get back to you as soon as possible!</p></br>
             <p> Happy Stitching!</p>
         </div>
     </div>
