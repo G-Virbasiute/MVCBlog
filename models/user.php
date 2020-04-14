@@ -48,6 +48,22 @@ class User {
             throw new Exception('A real exception should go here');
         }
     }
+    
+        public static function findbyid($id) {
+        $db = Db::getInstance();
+        //use strval to make sure $username is a string
+        $id = intval($id);
+        $req = $db->prepare('SELECT * FROM USER_TABLE WHERE UserID = :id');
+        //the query was prepared, now replace :username with the actual $username value
+        $req->execute(array('id' => $id));
+        $user = $req->fetch();
+        if ($user) {
+            return new User($user['UserType'], $user['Username'], $user['ProfilePhoto'], $user['FirstName'], $user['LastName'], $user['EmailAddress'], $user['Password']);
+        } else {
+            //replace with a more meaningful exception
+            throw new Exception('A real exception should go here');
+        }
+    }
 
     public static function update($username) {
         $db = Db::getInstance();
@@ -151,7 +167,7 @@ class User {
         }
 
         $tempFile = $_FILES[self::InputKey]['tmp_name'];
-        $path = __DIR__ . "../../views/images/profilepics/";
+        $path = dirname(__DIR__) . "/views/images/profilepics/";
         $destinationFile = $path . $name . '.jpeg';
 
         if (!move_uploaded_file($tempFile, $destinationFile)) {

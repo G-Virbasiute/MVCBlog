@@ -1,4 +1,6 @@
 <?php
+include 'models/post.php';
+
 
 class UserController {
 
@@ -22,6 +24,7 @@ class UserController {
             return call('pages', 'error');
         }
     }
+    
 
     public function createUser() {
         // we expect a url of form ?controller=users&action=create

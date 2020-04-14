@@ -46,8 +46,8 @@
     <div class="rightcolumn">
         <div class="card">
             <h2>About the author</h2>
-            <div class="fakeimg" style="height:100px;">Author's profile picture</div>
-            <?php //echo '<p>' . $user->firstName ." ". $user->lastName . '</p>'; ?>
+            <div class="fakeimg" style="height:100px;"><img src='<?php echo $user->profilePhoto?>' alt=''></div>
+            <?php echo '<p>' . $user->firstName ." ". $user->lastName . '</p>'; ?>
         </div>
         <div class="card">
             <h3>Other posts by the author:</h3>

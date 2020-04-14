@@ -22,6 +22,7 @@ class PostController {
             $post = Post::find($_GET['id']);
             $username = Post::getUsername($post->userid);
             $comments = Comment::postComment($_GET['id']);
+            $user = User::findbyid($post->userid);
             require_once('views/posts/read.php');
             require_once('views/comments/postComment.php');
         } catch (Exception $ex) {
