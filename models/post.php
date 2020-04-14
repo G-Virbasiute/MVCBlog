@@ -15,8 +15,14 @@ class Post {
     public $postviews;
     public $poststatus;
     public $likes;
+    public $img1;
+    public $img1desc;
+    public $img2;
+    public $img2desc;
+    public $img3;
+    public $img3desc;
 
-    function __construct($postid, $userid, $title, $category, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus, $likes) {
+    function __construct($postid, $userid, $title, $category, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus, $likes, $img1, $img1desc, $img2, $img2desc, $img3, $img3desc) {
         $this->postid = $postid;
         $this->userid = $userid;
         $this->title = $title;
@@ -29,6 +35,12 @@ class Post {
         $this->postviews = $postviews;
         $this->poststatus = $poststatus;
         $this->likes = $likes;
+        $this->img1 = $img1;
+        $this->img1desc = $img1desc;
+        $this->img2 = $img2;
+        $this->img2desc = $img2desc;
+        $this->img3 = $img3;
+        $this->img3 = $img3desc;
     }
 
     public static function all() {
@@ -37,7 +49,7 @@ class Post {
         $req = $db->query('SELECT * FROM BLOG_POSTS');
 // we create a list of Blog Post objects from the database results
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['galimg1'], $post['galimg1desc'], $post['galimg2'], $post['galimg2desc'], $post['galimg3'], $post['galimg3desc']);
         }
         return $list;
     }
@@ -46,12 +58,12 @@ class Post {
         $db = Db::getInstance();
 //use intval to make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT PostID, BLOG_POSTS.UserID, Title, POST_CATEGORY.Category, Blurb, MainImage, Content, DifficultyRating, Created, PostViews, PostStatus, Likes, USER_TABLE.Username FROM BLOG_POSTS INNER JOIN USER_TABLE ON BLOG_POSTS.UserID = USER_TABLE.UserID INNER JOIN POST_CATEGORY ON BLOG_POSTS.Category = POST_CATEGORY.CategoryID WHERE PostID = :id');
+        $req = $db->prepare('SELECT PostID, BLOG_POSTS.UserID, Title, POST_CATEGORY.Category, Blurb, MainImage, Content, DifficultyRating, Created, PostViews, PostStatus, Likes, galimg1, galimg1desc, galimg2, galimg2desc, galimg3, galimg3desc, USER_TABLE.Username FROM BLOG_POSTS INNER JOIN USER_TABLE ON BLOG_POSTS.UserID = USER_TABLE.UserID INNER JOIN POST_CATEGORY ON BLOG_POSTS.Category = POST_CATEGORY.CategoryID WHERE PostID = :id');
 //the query was prepared, now replace :id with the actual $id value
         $req->execute(array('id' => $id));
         $post = $req->fetch();
         if ($post) {
-            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['Username']);
+            return new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['galimg1'], $post['galimg1desc'], $post['galimg2'], $post['galimg2desc'], $post['galimg3'], $post['galimg3desc'], $post['Username']);
         } else {
 //replace with a more meaningful exception
             throw new Exception("We couldn't find that blog post");
@@ -63,7 +75,7 @@ class Post {
         $db = Db::getInstance();
         $req = $db->query("SELECT * FROM BLOG_POSTS WHERE CONCAT (Title, Blurb, Content) REGEXP '$search'");
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['galimg1'], $post['galimg1desc'], $post['galimg2'], $post['galimg2desc'], $post['galimg3'], $post['galimg3desc']);
         }
 
         return $list;
@@ -84,7 +96,7 @@ class Post {
         $req = $db->prepare('SELECT * FROM BLOG_POSTS WHERE Category = :id');
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['galimg1'], $post['galimg1desc'], $post['galimg2'], $post['galimg2desc'], $post['galimg3'], $post['galimg3desc']);
         }
 
         return $list;
@@ -154,7 +166,7 @@ class Post {
 
     public static function add($userid) {
         $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating, Created) VALUES ($userid, :title, :category, :blurb, :mainimage, :content, :rating, SYSDATE())");
+        $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating, Created, galimg1, galimg1desc, galimg2, galimg2desc, galimg3, galimg3desc) VALUES ($userid, :title, :category, :blurb, :mainimage, :content, :rating, SYSDATE(), :galimg1, :galimg1desc, :galimg2, :galimg2desc, :galimg3, :galimg3desc)");
         //$req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
@@ -162,6 +174,12 @@ class Post {
         $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
         $req->bindParam(':rating', $rating);
+        $req->bindParam(':galimg1', $img1);
+        $req->bindParam(':galimg1desc', $img1desc);
+        $req->bindParam(':galimg2', $img2);
+        $req->bindParam(':galimg2desc', $img2desc);
+        $req->bindParam(':galimg3', $img3);
+        $req->bindParam(':galimg3desc', $img3desc);
 
 
 // set parameters and execute
@@ -183,14 +201,29 @@ class Post {
         if (isset($_POST['rating']) && $_POST['rating'] != "") {
             $filteredRating = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_SPECIAL_CHARS);
         }
+        if (isset($_POST['img1desc']) && $_POST['img1desc'] != "") {
+            $filteredImg1desc = filter_input(INPUT_POST, 'img1desc', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if (isset($_POST['img2desc']) && $_POST['img2desc'] != "") {
+            $filteredImg2desc = filter_input(INPUT_POST, 'img2desc', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if (isset($_POST['img3desc']) && $_POST['img3desc'] != "") {
+            $filteredImg3desc = filter_input(INPUT_POST, 'img3desc', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
 
-        //$userid = $filteredUserID;
+
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;
         $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
+        $img1 = 'views/images/blogpics/' . $filteredTitle . 'galimg1' . '.jpeg';
+        $img1desc = $filteredImg1desc;
+        $img2 = 'views/images/blogpics/' . $filteredTitle . 'galimg2' . '.jpeg';
+        $img2desc = $filteredImg2desc;
+        $img3 = 'views/images/blogpics/' . $filteredTitle . 'galimg3' . '.jpeg';
+        $img3desc = $filteredImg3desc;
 
         $req->execute();
 
@@ -199,7 +232,7 @@ class Post {
     }
 
     const AllowedTypes = ['image/jpeg', 'image/jpg'];
-    const InputKey = 'blogpic';
+    const InputKey = 'blogpic[]';
 
 //die() function calls replaced with trigger_error() calls
 //replace with structured exception handling

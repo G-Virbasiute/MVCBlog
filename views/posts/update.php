@@ -15,6 +15,7 @@
             }
             ?>   
             <p>Update the blog thumbnail picture <a href="?controller=post&action=updateBlogPicture&id=<?= $post->postid ?>">here</a></p>
+            <p>Update the blog gallery pictures <a href="?controller=post&action=updateGalleryPictures&id=<?= $post->postid ?>">here</a></p>
         </div>    
         <p>
             Author: <?php echo $username; ?>

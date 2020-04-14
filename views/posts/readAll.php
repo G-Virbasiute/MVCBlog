@@ -1,3 +1,4 @@
+
 <div class="row" style='margin-right: 10px; margin-left: 10px'>
     <div class="leftcolumn">
         <div class="card">
