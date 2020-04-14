@@ -43,7 +43,4 @@ class Dashboard {
         return $usertype['UserType'];
     }
 }
-
-
-
 ?>

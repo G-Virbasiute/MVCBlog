@@ -57,11 +57,19 @@ echo "<img src='views/images/profilepics/anon.png' width='150' />";
   <div class="column" style="background-color:#bbb;">
       <h2><font color='purple'>Posts</font></h2>
     <table>
-  <tr>
-    <td>
-        <p><b>Manage Posts</b></p>
-    </td>
-  </tr>
+  <tr>Your Blog Posts:
+            <td>
+                <?php foreach ($posts as $post): ?>
+                    <tr>
+                        <?php
+                        echo '<div>';
+                        echo '<a href="?controller=post&action=read&id=' . $post->postid . '">' . $post->title. '</a>';
+                        echo '</div>';
+                        ?>
+                    </tr>
+                <?php endforeach; ?>
+            </td>
+        </tr>
   <tr>
     <td>
         <a href="?controller=post&action=create"<?php echo $_SESSION['username'] ?>">Create a Post</a>
