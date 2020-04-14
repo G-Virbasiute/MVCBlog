@@ -10,9 +10,12 @@
             echo '<div>';
             echo '<h1>' . $post->title . '</h1>';
             echo '<img style="width: auto; height: 400px" src="' . $post->mainimage . '"></br>';
-            echo '<p>Written by: ' . $username . '</p>';
-            echo '<p>Category: ' . $post->category . '</p>';
-            echo '<p>Difficulty rating: ' . $post->rating . '</p>';
+            echo '<div style="margin-right:15px">'; ;
+            echo '<p> Written by: ' . $user->username . '</p>';
+            echo '<p> Category: ' . $post->category . '</p>';  
+            echo '<p> Difficulty rating: ' . $post->rating . '</p>';
+            echo '</div>';
+            echo '<p style="border-top: 2px solid black; border-bottom: 2px solid black;"></p>';
             echo '<p>' . $post->content . '</p>';
             echo '<p>Posted on ' . $post->created . '</p>';
             echo '</div>';
@@ -46,14 +49,20 @@
     <div class="rightcolumn">
         <div class="card">
             <h2>About the author</h2>
-            <div class="fakeimg" style="height:100px;"><img src='<?php echo $user->profilePhoto?>' alt=''></div>
+            <div style="height:200px;"><img style="height:200px; border-style: solid" src='<?php echo $user->profilePhoto; ?>' alt=''></div>
             <?php echo '<p>' . $user->firstName ." ". $user->lastName . '</p>'; ?>
         </div>
         <div class="card">
             <h3>Other posts by the author:</h3>
-            <div class="fakeimg">Image link to a post</div><br>
-            <div class="fakeimg">Image link to a post</div><br>
-            <div class="fakeimg">Image link to a post</div>
+            <?php foreach ($posts as $post): ?>
+                <tr>
+                    <?php
+                    echo '<div>';
+                    echo '<a href="?controller=post&action=read&id=' . $post->postid . '"><img src=' . $post->mainimage .' style="height:200px;"></a>';
+                    echo '</div>';
+                    ?>
+                </tr>
+            <?php endforeach; ?>
         </div>
         <div class="card">
             <h3>Follow Me</h3>

@@ -57,6 +57,19 @@ class Post {
             throw new Exception("We couldn't find that blog post");
         }
     }
+    
+        public static function finduserpost($id) {
+        $list = [];
+        $db = Db::getInstance();
+        $id = intval($id);
+        $req = $db->prepare('SELECT * FROM BLOG_POSTS WHERE UserID = :id');
+        $req->execute(array('id' => $id));
+        foreach ($req->fetchAll() as $post) {
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
+        }
+        return $list;
+    }
+    
 
     public static function search($search) {
         $list = [];
