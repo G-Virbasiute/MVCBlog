@@ -108,7 +108,7 @@ $categories->execute();
                                    value="10000000"  
                                    />  
                             <label>Main blog image: </label>
-                            <input type="file" name="blogpic[]" class="form-control"/>
+                            <input type="file" name="blogpic[]" accept="image/*" class="w3-btn w3-pink"/>
                         </div>
                         <div class = "form-group">
                             <label>Image 1</label>
@@ -138,7 +138,20 @@ $categories->execute();
                 </form>
             </div>    
         </div>    
+=======
+                        <span class="help-block"></span></br>
 
+                        <div class="form-group">
+                            <p>
+                                <input class="w3-btn w3-pink" type="submit" name = 'submit' value="Create My Post!">
+                            </p>
+                        </div>
+                    </form>
+                </div>    
+            </div>
+>>>>>>> 1763902e6072a8725887cb87d56d5c0ebccf999d
+
+        </div>    
     <div class="rightcolumn">
         <div class="card">
             <p style="padding-left:20px;padding-top:20px;"><b>Top Tips:</b></p>

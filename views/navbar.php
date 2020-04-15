@@ -50,7 +50,7 @@
                         <li class="navitem">
                             <div class="search-container">
                                 <form action="searchLink.php" method="GET">
-                                    <input type='text' name='search'>
+                                    <input type='text' placeholder='Search our blog posts'  name='search'>
                                     <button type="submit">Submit</a></button>
                                 </form>
                             </div>
