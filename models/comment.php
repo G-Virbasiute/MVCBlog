@@ -6,30 +6,19 @@ class Comment {
     public $postid;
     public $userid;
     public $comment;
+    public $city; 
 
-    function __construct($commentid, $postid, $userid, $comment, $time,  $username) {
+    function __construct($commentid, $postid, $userid, $comment, $time, $city, $username) {
         $this->commentid = $commentid;
         $this->postid = $postid;
         $this->userid = $userid;
         $this->comment = $comment;
         $this->time = $time;
+        $this->city = $city;
         $this->username = $username;
     }
 
-    
-    /* Might be an unnecesary function
-     * 
-    public static function all() {
-        $list = [];
-        $db = Db::getInstance();
-        $req = $db->query('SELECT CommentID, COMMENTS.UserID, PostID, Comment, Username FROM COMMENTS INNER JOIN USER_TABLE ON Comments.UserID = USER_TABLE.UserID');
-        
-        foreach ($req->fetchAll() as $comment) {
-            $list[] = new Comment($comment['CommentID'], $comment['UserID'], $comment['PostID'], $comment['Comment'], $comment['Username']);
-        }
-        return $list;
-    }
-    */
+
      public static function getUsername($id) {
         $db = Db::getInstance();
         $req = $db->prepare('SELECT Username FROM USER_TABLE WHERE UserID=:id');
@@ -42,10 +31,10 @@ class Comment {
         $list = [];
         $db = Db::getInstance();
         $id = intval($id);
-        $req = $db->prepare('SELECT CommentID, PostID, COMMENTS.UserID, Comment, Time, USER_TABLE.Username FROM COMMENTS INNER JOIN USER_TABLE ON COMMENTS.UserID = USER_TABLE.UserID WHERE PostID = :id');
+        $req = $db->prepare('SELECT CommentID, PostID, COMMENTS.UserID, Comment, Time, City, USER_TABLE.Username FROM COMMENTS INNER JOIN USER_TABLE ON COMMENTS.UserID = USER_TABLE.UserID WHERE PostID = :id');
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $comment) {
-            $list[] = new Comment($comment['CommentID'], $comment['PostID'], $comment['UserID'], $comment['Comment'], $comment['Time'], $comment['Username']);
+            $list[] = new Comment($comment['CommentID'], $comment['PostID'], $comment['UserID'], $comment['Comment'], $comment['Time'], $comment['City'], $comment['Username']);
         }
 
         return $list;
@@ -55,18 +44,18 @@ class Comment {
         $list = [];
         $db = Db::getInstance();
         $id = intval($id);
-        $req = $db->prepare('SELECT CommentID, PostID, COMMENTS.UserID, Comment, Time, Username FROM COMMENTS INNER JOIN USER_TABLE ON Comments.UserID = USER_TABLE.UserID WHERE Comments.UserID = :id');
+        $req = $db->prepare('SELECT CommentID, PostID, COMMENTS.UserID, Comment, Time, City, Username FROM COMMENTS INNER JOIN USER_TABLE ON Comments.UserID = USER_TABLE.UserID WHERE Comments.UserID = :id');
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $comment) {
-        $list[] = new Comment($comment['CommentID'], $comment['PostID'], $comment['UserID'], $comment['Comment'], $comment['Time'], $comment['Username']);
+        $list[] = new Comment($comment['CommentID'], $comment['PostID'], $comment['UserID'], $comment['Comment'], $comment['Time'], $comment['City'], $comment['Username']);
         }
 
         return $list;
     }
 
-    public static function add($postid, $userid) {
+    public static function add($postid, $userid, $twn) {
         $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO COMMENTS (PostID, UserID, Comment, Time) VALUES ($postid, $userid, :comment, current_timestamp())");
+        $req = $db->prepare("INSERT INTO COMMENTS (PostID, UserID, Comment, Time, City) VALUES ($postid, $userid, :comment, SYSDATE(), $twn)");
         //$req->bindParam(':postid', $postid);
         //$req->bindParam(':userid', $userid);
         $req->bindParam(':comment', $comment);

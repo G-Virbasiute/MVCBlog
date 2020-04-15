@@ -117,6 +117,7 @@ class UserController {
     public function logOut() {
 
         User::lOut();
+
     }
     
     

@@ -69,7 +69,7 @@ div.desc {
   box-sizing: border-box;
 }
 
-.responsive {
+.responsive #gal {
   padding: 0 6px;
   float: left;
   width: 24.99999%;

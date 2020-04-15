@@ -10,6 +10,7 @@
         }
 
         require_once('views/layout.php');
+        
         ?>
 <!DOCTYPE html>
 <html>

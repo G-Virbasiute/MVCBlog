@@ -25,7 +25,6 @@ class PostController {
             $comments = Comment::postComment($_GET['id']);
             $posts = Post::finduserpost($post->userid);
             require_once('views/posts/read.php');
-            require_once('views/postgallery/showgallery.php');
             require_once('views/comments/postComment.php');
         } catch (Exception $ex) {
             return call('pages', 'error');
@@ -34,14 +33,16 @@ class PostController {
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION["loggedin"])) {
             require_once('views/comments/create.php');
         } else if (isset($_SESSION["loggedin"])) {
-            Comment::add($_GET['id'], $_SESSION["uid"]);
+            Comment::add($_GET['id'], $_SESSION["uid"], $_COOKIE["town"]);
             $post = Post::find($_GET['id']);
             $comments = Comment::postComment($_GET['id']);
-
+            $posts = Post::finduserpost($post->userid);
             require_once('views/posts/read.php');
             require_once('views/comments/postComment.php');
             require_once('views/comments/create.php');
         }
+        //unset($_COOKIE["town"]);
+        //setcookie("town", '', time() - 3600);
     }
 
     public function search() {
@@ -90,7 +91,9 @@ class PostController {
 
 // we use the given id to get the correct post
             $post = Post::find($_GET['id']);
-            $username = Post::getUsername($_GET['id']);
+            $user = User::findbyid($post->userid);
+            $comments = Comment::postComment($_GET['id']);
+            $posts = Post::finduserpost($post->userid);
 
             require_once('views/posts/update.php');
         }
@@ -98,46 +101,14 @@ class PostController {
             $id = $_GET['id'];
             Post::update($id);
 
-            $posts = Post::all();
-            require_once('views/posts/readAll.php');
-        }
-    }
-
-    public function updateBlogPicture() {
-
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            if (!isset($_GET['id']))
-                return call('pages', 'error');
-
-// we use the given id to get the correct post
             $post = Post::find($_GET['id']);
-            require_once('views/posts/updateblogpicture.php');
-        }
-        else {
-            $id = $_GET['id'];
-            Post::updateBlogPicture($id);
-            $post = Post::find($_GET['id']);
-            $username = Post::getUsername($_GET['id']);
+            $user = User::findbyid($post->userid);
+            $comments = Comment::postComment($_GET['id']);
+            $posts = Post::finduserpost($post->userid);
             require_once('views/posts/read.php');
-        }
-    }
-
-    public function updateGalleryPictures() {
-
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            if (!isset($_GET['id']))
-                return call('pages', 'error');
-
-// we use the given id to get the correct post
-            $post = Post::find($_GET['id']);
-            require_once('views/postgallery/update.php');
-        }
-        else {
-            $id = $_GET['id'];
-            Post::updateGalleryPictures($id);
-            $post = Post::find($_GET['id']);
-            $username = Post::getUsername($_GET['id']);
-            require_once('views/posts/read.php');
+            //require_once('views/postgallery/showgallery.php');
+            require_once('views/comments/postComment.php');
+            require_once('views/comments/create.php');
         }
     }
 

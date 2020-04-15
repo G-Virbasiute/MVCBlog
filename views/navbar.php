@@ -18,7 +18,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Categories
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div class="dropdown-menu" style="width: 200px; height: 250px; "aria-labelledby="navbarDropdownMenuLink">
                                 <table>
                                     <?php foreach ($categories as $category): ?>
                                         <tr>
@@ -50,7 +50,7 @@
                         <li class="navitem">
                             <div class="search-container">
                                 <form action="searchLink.php" method="GET">
-                                    <input type='text' name='search'>
+                                    <input type='text' placeholder='Search our blog posts'  name='search'>
                                     <button type="submit">Submit</a></button>
                                 </form>
                             </div>
@@ -59,3 +59,4 @@
                 </div>
             </nav>
         </div>
+</div>
