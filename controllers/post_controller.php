@@ -41,6 +41,8 @@ class PostController {
             require_once('views/comments/postComment.php');
             require_once('views/comments/create.php');
         }
+        //unset($_COOKIE["town"]);
+        //setcookie("town", '', time() - 3600);
     }
 
     public function search() {

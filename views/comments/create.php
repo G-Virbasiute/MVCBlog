@@ -1,9 +1,5 @@
-
-
-
 <script>
-    /*
-function userlocation () {
+(function () {
     navigator.geolocation.getCurrentPosition(function (position) {
             getUserAddressBy(position.coords.latitude, position.coords.longitude)
         },
@@ -16,39 +12,21 @@ function userlocation () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var address = JSON.parse(this.responseText)
-                console.log(address.results[0].formatted_address)
+                console.log(address.results[6].formatted_address)
+                var result = address.results[6].formatted_address
+                document.cookie = "town=" + JSON.stringify(result) + ";";
+
+
             }
-        };
-        var usertown;
-        usertown xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyDOz526glReNGZcpmidNlUZa6RjUxZ9W14", true);
-        usertown = xhttp.send();
+        }
+        xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyDOz526glReNGZcpmidNlUZa6RjUxZ9W14", true);
+        xhttp.send();
     }
-return usertown;
-        */
- $(document).ready(function () { 
-    createCookie("town", "'GeeksforGeeks'", "10"); 
-}); 
-   
-// Function to create the cookie 
-function createCookie(name, value, days) { 
-    var expires; 
-      
-    if (days) { 
-        var date = new Date(); 
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
-        expires = "; expires=" + date.toGMTString(); 
-    } 
-    else { 
-        expires = ""; 
-    } 
-      
-    document.cookie = escape(name) + "=" +  
-        escape(value) + expires + "; path=/"; 
-} 
-  
+})();
 
 
 </script>
+    
 
 <center>
         <h3 style='margin-top: 20px'>Leave a comment:</h3>
