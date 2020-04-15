@@ -49,6 +49,7 @@ class User {
         }
     }
     
+        
         public static function findbyid($id) {
         $db = Db::getInstance();
         //use strval to make sure $username is a string
@@ -64,6 +65,7 @@ class User {
             throw new Exception('A real exception should go here');
         }
     }
+
 
     public static function update($username) {
         $db = Db::getInstance();
@@ -167,6 +169,7 @@ class User {
         }
 
         $tempFile = $_FILES[self::InputKey]['tmp_name'];
+        //$path = __DIR__ . "../../views/images/profilepics/";
         $path = dirname(__DIR__) . "/views/images/profilepics/";
         $destinationFile = $path . $name . '.jpeg';
 
@@ -192,6 +195,7 @@ class User {
         $req->execute(array('username' => $username));
     }
 
+/**   ****ORIGINAL LOGIN FUNCTION****
     public static function logIn($username, $password) {
         $db = Db::getInstance();
         $stmt = $db->prepare("SELECT * FROM USER_TABLE WHERE Username = ?");
@@ -206,19 +210,120 @@ class User {
             return call('pages', 'home');
         } else {
             // Display an error message if password is not valid
-            echo "Your logon details have not been recognised";
+            echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;">Your logon details have not been recognised...</p>';
         }
     }
+*/
+ 
 
+    public static function logIn($username, $password) {
+        $db = Db::getInstance();
+        $stmt = $db->prepare("SELECT * FROM USER_TABLE WHERE Username = ?");
+        $stmt->execute([$username]);
+        $user = $stmt->fetch();
+        
+        $username_exists = false;
+        $lockout_minutes = 5;
+        $login_fail_max = 5;
+        $login_fail_count = 0;
+        $timestamp = date("Y-m-d H:i:s");
+        
+        // Checks that the username exists...
+        if (count($user) > 1) {
+                $userid = $user['UserID'];
+                $username_exists = true;
+                
+                //Checks whether the account is already locked out, and if it is, whether enough time has elapsed for it to be unlocked 
+                if ($user['IsLocked'] == 1) {
+                    $lock_start_timestamp = $user['LockStartTimestamp'];
+                        if ($lock_start_timestamp != NULL) {
+                            $dif = (strtotime($timestamp) - strtotime($lock_start_timestamp));
+                        if ($dif > $lockout_minutes * 60) {
+                            $login_fail_count = 0;
+                            $stmt = $db->prepare("UPDATE USER_TABLE SET IsLocked = 0, LoginFailCount = 0, LockStartTimestamp = NULL WHERE UserID = $userid");
+                            $stmt->execute();
+                        }
+                        }
+                } 
+                else {
+                    $login_fail_count = $user['LoginFailCount'];
+                }
+        
+        if ($username_exists) {
+            //If the account isn't locked out and the correct password has been given, the login is successful
+            $sql = "SELECT * FROM USER_TABLE WHERE Username = '$username'";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $user = $stmt->fetch();
+            if (password_verify($password, $user['Password'])) {
+            
+                if (count($user) > 0) {
+                    if ($user["IsLocked"] == 0) {
+                        $sql = "UPDATE USER_TABLE SET LoginFailCount = 0 WHERE UserID = $userid";
+                        $stmt = $db->prepare($sql);
+                        $stmt->execute();
+                        // Login Successful
+                        $_SESSION['loggedin'] = TRUE;
+                        $_SESSION['username'] = $username;
+                        $_SESSION["uid"] = $userid;
+                        // Refreshes page to remove session info and redirects to home page
+                        //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
+                        echo '<script>window.location="http://localhost/LASLoginRevamp/mvcindex.php"</script>';
+
+                }    
+            }
+                
+            else {
+                // Account is locked. Increment failed login count
+                $sql = "UPDATE USER_TABLE SET LoginFailCount = LoginFailCount + 1 WHERE UserID = $userid";
+                $stmt = $db->prepare($sql);
+                $stmt->execute();
+                echo "<pre>Account is locked.</pre>";
+                }
+            } else {
+                // Not Successful. Increment failed login count
+                $will_be_locked = ($login_fail_count == $login_fail_max - 1);
+                $timestamp = date("Y-m-d H:i:s");
+                if ($will_be_locked) {
+                    $sql = "UPDATE USER_TABLE SET LoginFailCount = LoginFailCount + 1, IsLocked = 1, LockStartTimestamp = '$timestamp' WHERE UserID = $userid";
+                } else {
+                    $sql = "UPDATE USER_TABLE SET LoginFailCount = LoginFailCount + 1 WHERE UserID = $userid";
+                }
+                $stmt = $db->prepare($sql);
+                $stmt->execute();
+                
+                if ($will_be_locked) {
+                    echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;">Sorry sausage fingers, too many attempts. <br>Try again in 5 minutes...</p>';
+                } else {
+                    $attempts_remaining = ($login_fail_max - ($login_fail_count + 1));
+                    if ($attempts_remaining > 0) {
+                        echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;">Your login details have not been recognised. <a href="?controller=user&action=authUser">Try again?</a></p>';
+                        
+                        if ($attempts_remaining <= 3) {
+                           echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;">Attempts remaining: ' . ($login_fail_max - ($login_fail_count + 1)) . '</p>';
+                        }
+                    }
+                }
+            }
+        }
+        } else {
+           echo '<p style="padding-left:20px;padding-top:20px;font-family: \'Amatic SC\', cursive; font-size: 30px;">Your login details have not been recognised. <a href="?controller=user&action=authUser">Try again?</a></p>';
+        }
+            
+    }
+    
+    
     public static function lOut() {
         // Unset all of the session variables
         $_SESSION = array();
 
         // Destroy the session.
+        session_unset();
         session_destroy();
 
-        // Redirect to home page
-        return call('pages', 'home');
+        // Refreshes page to remove session info and redirects to home page
+        //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
+        echo '<script>window.location="http://localhost/LASLoginRevamp/mvcindex.php"</script>';
         exit;
     }
 

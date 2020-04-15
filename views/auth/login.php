@@ -3,7 +3,7 @@
             <form action="" method="post">
                 <div>
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control" autocomplete='off' required>
+                    <input type="text" name="username" class="form-control" autocomplete='off' autofocus="true" required>
                 </div>    
                 <div>
                     <label>Password</label>
