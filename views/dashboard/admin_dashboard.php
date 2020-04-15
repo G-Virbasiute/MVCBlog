@@ -38,7 +38,6 @@ echo "<img src='views/images/profilepics/anon.png' width='150' />";
 <p>Name: <?php echo $username['FirstName']. ' '. $username['LastName']; ?></p>
 <p>User Type: <?php echo $username['UserType']; ?></p>
 <p>Email: <?php echo $username['EmailAddress']; ?></p>
-<p>Posts:</p>
 
       </td>
   </tr>

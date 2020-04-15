@@ -31,7 +31,6 @@
                             <p><b>Email:</b> <?php echo $username['EmailAddress']; ?></p>
                             <p><b>Posts:</b></p>
                         </div>
-
                     </td>
                 </tr>
                 <tr>
