@@ -108,7 +108,7 @@ $categories->execute();
                                    value="10000000"  
                                    />  
                             <label>Main blog image: </label>
-                            <input type="file" name="blogpic[]" class="w3-btn w3-pink"/>
+                            <input type="file" name="blogpic[]" accept="image/*" class="w3-btn w3-pink"/>
                         </div>
                         <div class = "form-group">
                             <label>Image 1</label>
@@ -131,19 +131,17 @@ $categories->execute();
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                         <input type = "file" name = "blogpic[]" accept="image/*" class="form-control" />
                         <span class="help-block"></span></br>
-                </div>
 
-                <div class="form-group">
-                    <p>
-                        <input class="w3-btn w3-pink" type="submit" name = 'submit' value="Create My Post!">
-                    </p>
-                </div>
-                </form>
-            </div>    
+                        <div class="form-group">
+                            <p>
+                                <input class="w3-btn w3-pink" type="submit" name = 'submit' value="Create My Post!">
+                            </p>
+                        </div>
+                    </form>
+                </div>    
+            </div>
+
         </div>    
-    </div>
-
-
     <div class="rightcolumn">
         <div class="card">
             <p style="padding-left:20px;padding-top:20px;"><b>Top Tips:</b></p>
@@ -152,6 +150,7 @@ $categories->execute();
             <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 3. If you would like to display a list with bullet points, please write it likes this:</p>
             <p style="font-size: 15px; margin-left: 10px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> &lt;ul&gt; </br> &lt;li&gt;Coffee&lt;/li&gt; </br> &lt;li&gt;Tea&lt;/li&gt;  </br> &lt;li&gt;Milk&lt;/li&gt; </br> &lt;/ul&gt;</p>
         </div>
+    </div>
     </div>
 
 

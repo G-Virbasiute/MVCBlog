@@ -1,5 +1,7 @@
 <?php
 
+include 'phpFileUploadErrors.php';
+
 class Post {
 
 // we define 12 attributes
@@ -21,6 +23,7 @@ class Post {
     public $img2desc;
     public $img3;
     public $img3desc;
+    public $username;
 
     function __construct($postid, $userid, $title, $category, $blurb, $mainimage, $content, $rating, $created, $postviews, $poststatus, $likes, $img1, $img1desc, $img2, $img2desc, $img3, $img3desc) {
         $this->postid = $postid;
@@ -40,7 +43,7 @@ class Post {
         $this->img2 = $img2;
         $this->img2desc = $img2desc;
         $this->img3 = $img3;
-        $this->img3 = $img3desc;
+        $this->img3desc = $img3desc;
     }
 
     public static function all() {
@@ -69,19 +72,18 @@ class Post {
             throw new Exception("We couldn't find that blog post");
         }
     }
-    
-        public static function finduserpost($id) {
+
+    public static function finduserpost($id) {
         $list = [];
         $db = Db::getInstance();
         $id = intval($id);
         $req = $db->prepare('SELECT * FROM BLOG_POSTS WHERE UserID = :id');
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes']);
+            $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['galimg1'], $post['galimg1desc'], $post['galimg2'], $post['galimg2desc'], $post['galimg3'], $post['galimg3desc']);
         }
         return $list;
     }
-    
 
     public static function search($search) {
         $list = [];
@@ -117,15 +119,21 @@ class Post {
 
     public static function update($id) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update BLOG_POSTS set Title=:title, Category=:category, Blurb=:blurb, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus where PostID=:postid");
+        $req = $db->prepare("Update BLOG_POSTS set Title=:title, Category=:category, Blurb=:blurb, MainImage=:mainimage, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus, galimg1=:galimg1, galimg1desc=:galimg1desc, galimg2=:galimg2, galimg2desc=:galimg2desc, galimg3=:galimg3, galimg3desc=:galimg3desc WHERE PostID=:postid");
         $req->bindParam(':postid', $id);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
         $req->bindParam(':blurb', $blurb);
+        $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
         $req->bindParam(':rating', $rating);
         $req->bindParam(':poststatus', $poststatus);
-
+        $req->bindParam(':galimg1', $galimg1);
+        $req->bindParam(':galimg1desc', $galimg1desc);
+        $req->bindParam(':galimg2', $galimg2);
+        $req->bindParam(':galimg2desc', $galimg2desc);
+        $req->bindParam(':galimg3', $galimg3);
+        $req->bindParam(':galimg3desc', $galimg3desc);
 
 // set parameters and execute
         if (isset($_POST['title']) && $_POST['title'] != "") {
@@ -146,41 +154,42 @@ class Post {
         if (isset($_POST['poststatus']) && $_POST['poststatus'] != "") {
             $filteredPostStatus = filter_input(INPUT_POST, 'poststatus', FILTER_SANITIZE_SPECIAL_CHARS);
         }
+        if (isset($_POST['img1desc']) && $_POST['img1desc'] != "") {
+            $filteredImg1desc = filter_input(INPUT_POST, 'img1desc', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if (isset($_POST['img2desc']) && $_POST['img2desc'] != "") {
+            $filteredImg2desc = filter_input(INPUT_POST, 'img2desc', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if (isset($_POST['img3desc']) && $_POST['img3desc'] != "") {
+            $filteredImg3desc = filter_input(INPUT_POST, 'img3desc', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
 
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;
+        $mainimage = 'views/images/blogpics/' . $filteredTitle . '0' . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
         $poststatus = $filteredPostStatus;
-
-        $req->execute();
-    }
-
-    public static function updateBlogPicture($id) {
-        $db = Db::getInstance();
-        $req = $db->prepare("Update BLOG_POSTS set Title=:title, MainImage=:mainimage where PostID=:postid");
-        $req->bindParam(':postid', $id);
-        $req->bindParam(':title', $title);
-        $req->bindParam(':mainimage', $mainimage);
-
-// set parameters and execute
-        if (isset($_POST['title']) && $_POST['title'] != "") {
-            $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
-        }
-
-        $title = $filteredTitle;
-        $mainimage = 'views/images/blogpics/' . $title . '.jpeg';
+        $galimg1 = 'views/images/blogpics/' . $filteredTitle . '1' . '.jpeg';
+        $galimg1desc = $filteredImg1desc;
+        $galimg2 = 'views/images/blogpics/' . $filteredTitle . '2' . '.jpeg';
+        $galimg2desc = $filteredImg2desc;
+        $galimg3 = 'views/images/blogpics/' . $filteredTitle . '3' . '.jpeg';
+        $galimg3desc = $filteredImg3desc;
 
         $req->execute();
 
-        Post::uploadFile($title);
+//upload post image
+        Post::uploadMultiFile($title);
     }
 
+    
+    
     public static function add($userid) {
         $db = Db::getInstance();
         $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating, Created, galimg1, galimg1desc, galimg2, galimg2desc, galimg3, galimg3desc) VALUES ($userid, :title, :category, :blurb, :mainimage, :content, :rating, SYSDATE(), :galimg1, :galimg1desc, :galimg2, :galimg2desc, :galimg3, :galimg3desc)");
-        //$req->bindParam(':userid', $userid);
+//$req->bindParam(':userid', $userid);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
         $req->bindParam(':blurb', $blurb);
@@ -196,9 +205,9 @@ class Post {
 
 
 // set parameters and execute
-        //if (isset($_POST['userid']) && $_POST['userid'] != "") {
-        //   $filteredUserID = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_SPECIAL_CHARS);
-        //}
+//if (isset($_POST['userid']) && $_POST['userid'] != "") {
+//   $filteredUserID = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_SPECIAL_CHARS);
+//}
         if (isset($_POST['title']) && $_POST['title'] != "") {
             $filteredTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         }
@@ -228,53 +237,87 @@ class Post {
         $title = $filteredTitle;
         $category = $filteredCategory;
         $blurb = $filteredBlurb;
-        $mainimage = 'views/images/blogpics/' . $filteredTitle . '.jpeg';
+        $mainimage = 'views/images/blogpics/' . $filteredTitle . '0' . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
-        $img1 = 'views/images/blogpics/' . $filteredTitle . 'galimg1' . '.jpeg';
+        $img1 = 'views/images/blogpics/' . $filteredTitle . '1' . '.jpeg';
         $img1desc = $filteredImg1desc;
-        $img2 = 'views/images/blogpics/' . $filteredTitle . 'galimg2' . '.jpeg';
+        $img2 = 'views/images/blogpics/' . $filteredTitle . '2' . '.jpeg';
         $img2desc = $filteredImg2desc;
-        $img3 = 'views/images/blogpics/' . $filteredTitle . 'galimg3' . '.jpeg';
+        $img3 = 'views/images/blogpics/' . $filteredTitle . '3' . '.jpeg';
         $img3desc = $filteredImg3desc;
 
         $req->execute();
 
 //upload post image
-        Post::uploadFile($title);
+        Post::uploadMultiFile($title);
     }
 
-    const AllowedTypes = ['image/jpeg', 'image/jpg'];
-    const InputKey = 'blogpic[]';
+    const AllowedTypes = ['jpeg', 'JPEG', 'jpg', 'JPG'];
+    const InputKey = 'blogpic';
 
-//die() function calls replaced with trigger_error() calls
-//replace with structured exception handling
-    public static function uploadFile(string $name) {
+//this is a function which re-keys a multi-dimensional array so it is keyed per file and not per info type, as normal $_FILES arrays are
+    public static function reArrayFiles($file_post) {
+        $file_ary = array();
+        $file_count = count($file_post['name']);
+        $file_keys = array_keys($file_post);
+
+        for ($i = 0; $i < $file_count; $i++) {
+            foreach ($file_keys as $key) {
+                $file_ary[$i][$key] = $file_post[$key][$i];
+            }
+        }
+
+        return $file_ary;
+    }
+
+//function for handling multiple file uploads (warning this function right here is mega)
+    public static function uploadMultiFile(string $name) {
 
         if (empty($_FILES[self::InputKey])) {
             trigger_error("File Missing!");
+        } elseif (!empty($_FILES[self::InputKey])) {
+
+//reArrayFiles as defined above, re-structures to a lovely nice array not a horrible $_FILES one 
+            $multifiles = self::reArrayFiles($_FILES[self::InputKey]);
         }
 
-        if ($_FILES[self::InputKey]['error'] > 0) {
-            trigger_error("Handle the error! " . $_FILES[InputKey]['error']);
-        }
+//Loop through your lovely re-structure array
+        for ($i = 0; $i < count($multifiles); $i++) {
+//if there's an error in the new array
+            if (($multifiles[$i]['error']) > 0) {
+//print out the error messages defined in phpFileUploadErrors file, and this also tells you which file is the issue here.
+                echo ($multifiles[$i]['error']) . '-' . ($multifiles[$i]['name']);
+            } else {
+//if there's no error messages in your array
+//find the file extension of your files and look at them
+                $file_ext = explode('.', $multifiles[$i]['name']);
+                $file_ext = end($file_ext);
+                //are your file extensions in the permitted types defined as a constant above?
+                if (!in_array($file_ext, self::AllowedTypes)) {
+//if not, prints out offending file name and tells you the error
+                    echo ($multifiles[$i]['name']) . '-' . 'Invalid file extension; file type not allowed';
+                } else {
+//if your filetype is definitely allowed, loop through different file names and move them into directory
 
+                    $current_name = ($multifiles[$i]['name']);
+                    $tmp_name = ($multifiles[$i]['tmp_name']);
+// We define the static final name for uploaded files (in the loop we will add an number to the end)
+                    $static_final_name = $name;
+//define directory 
+                    $path = dirname(__DIR__) . "/views/images/blogpics/";
+                    echo $path;
 
-        if (!in_array($_FILES[self::InputKey]['type'], self::AllowedTypes)) {
-            trigger_error("File Type Not Allowed: " . $_FILES[self::InputKey]['type']);
-        }
-
-        $tempFile = $_FILES[self::InputKey]['tmp_name'];
-        $path = dirname(__DIR__) . "/views/images/blogpics/";
-        $destinationFile = $path . $name . '.jpeg';
-
-        if (!move_uploaded_file($tempFile, $destinationFile)) {
-            trigger_error("Handle Error");
-        }
-
-//Clean up the temp file
-        if (file_exists($tempFile)) {
-            unlink($tempFile);
+//move uploaded files
+                    if (move_uploaded_file($tmp_name, $path . $static_final_name . $i . "." . $file_ext)) {
+                        echo $current_name . " upload is complete<br>";
+                    } else {
+                        echo "move_uploaded_file function failed for " . $current_name . "<br>";
+                    } if (file_exists($tmp_name)) {
+                        unlink($tmp_name);
+                    }
+                }
+            }
         }
     }
 

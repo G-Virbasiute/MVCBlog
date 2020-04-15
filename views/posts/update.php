@@ -4,21 +4,8 @@
     <form action="" method="POST" class="w3-container" enctype="multipart/form-data">
         <h2>Update Blog Post</h2>
 
-        <div class="form-group">
-            <?php
-            $file = $post->mainimage;
-            if (file_exists($file)) {
-                $img = "<img src='$file' width='150' />";
-                echo $img;
-            } else {
-                echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
-            }
-            ?>   
-            <p>Update the blog thumbnail picture <a href="?controller=post&action=updateBlogPicture&id=<?= $post->postid ?>">here</a></p>
-            <p>Update the blog gallery pictures <a href="?controller=post&action=updateGalleryPictures&id=<?= $post->postid ?>">here</a></p>
-        </div>    
         <p>
-            Author: <?php echo $username; ?>
+            Author: <?php echo $user->username; ?>
         </p>
         <p>
             <input class="w3-input" type="text" name="title" value="<?= $post->title; ?>">
@@ -88,8 +75,73 @@
             }
             ?>
         </p>
+        <div class="form-group">
+            <label>Change the main blog picture:</label>
+            <?php
+            $file0 = $post->mainimage;
+            if (file_exists($file0)) {
+                $img = "<img src='$file0' width='150' />";
+                echo $img;
+            } else {
+                echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
+            }
+            ?>   
+            <input type="file" name="blogpic[]" accept="image/*" class="w3-btn w3-pink" value="<?= $post->mainimage; ?>"/>
+        </div>    
+        <div class="form-group">
+            <label>Change the blog gallery pictures and descriptions:</label></br>
+            <label>Image 1:</label>
+            <?php
+            $file1 = $post->img1;
+            if (file_exists($file1)) {
+                $img = "<img src='$file1' width='150' />";
+                echo $img;
+            } else {
+                echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
+            }
+            ?>   
+            <input type="file" name="blogpic[]" accept="image/*" class="w3-btn w3-pink" value="<?= $post->img1; ?>"/>
 
-        <br/>
+            <div class = "form-group">
+                <label>Image 1 description:</label>
+                <input type="text" name="img1desc" class="form-control" value="<?= $post->img1desc; ?>" required>
+            </div>    
+            <label>Image 2:</label>
+            <?php
+            $file2 = $post->img2;
+            if (file_exists($file2)) {
+                $img = "<img src='$file2' width='150' />";
+                echo $img;
+            } else {
+                echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
+            }
+            ?>   
+            <input type="file" name="blogpic[]" accept="image/*" class="w3-btn w3-pink" value="<?= $post->img2; ?>"/>
+
+            <div class = "form-group">
+                <label>Image 2 description:</label>
+                <input type="text" name="img2desc" class="form-control" value="<?= $post->img2desc; ?>" required>
+            </div>    
+            <label>Image 3:</label>
+            <?php
+            $file3 = $post->img3;
+            if (file_exists($file3)) {
+                $img = "<img src='$file3' width='150' />";
+                echo $img;
+            } else {
+                echo "<img src='views/images/standard/_noproductimage.png' width='150' />";
+            }
+            ?>   
+            <input type="file" name="blogpic[]" accept="image/*" class="w3-btn w3-pink" value="<?= $post->img3; ?>"/>
+
+            <div class = "form-group">
+                <label>Image 3 description:</label>
+                <input type="text" name="img3desc" class="form-control" value="<?= $post->img3desc; ?>" required>
+            </div>    
+        </div>  
+        <p>
+
+            <br/>
         <p>
             <input class = "w3-btn w3-gray" type = "submit" value = "Update Blog Post">
             <input type="reset" class="btn btn-outline-info" value="Reset">
