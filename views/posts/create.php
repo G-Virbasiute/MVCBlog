@@ -101,7 +101,6 @@ $categories->execute();
                             </select>
                         </div>
 
-
                         <div class="form-group">
                             <input type="hidden"  
                                    name="MAX_FILE_SIZE" 
@@ -115,52 +114,53 @@ $categories->execute();
                         </div>    
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                         <input type = "file" name = "blogpic[]" accept="image/*" class="form-control" />
-                        <span class="help-block"></span></br>
+                        <div class = "form-group">
+                            <label>Image 1 description:</label>
+                            <input type="text" name="img1desc" class="form-control" placeholder="Describe your first gallery image" required>
+                            </br>
+                        </div>    
                         <div class="form-group">
                             <label>Image 2</label>
                         </div>    
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                         <input type = "file" name = "blogpic[]" accept="image/*" class="form-control" />
-                        <span class="help-block"></span></br>
+                        <div class = "form-group">
+                            <label>Image 2 description:</label>
+                            <input type="text" name="img2desc" class="form-control" placeholder="Describe your second gallery image" required>
+                            </br>
+                        </div>  
                         <div class="form-group">
                             <label>Image 3</label>
                         </div>    
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                         <input type = "file" name = "blogpic[]" accept="image/*" class="form-control" />
-                        <span class="help-block"></span></br>                     
-                </div>
-
-                <div class="form-group">
-                    <p>
-                        <input class="w3-btn w3-pink" type="submit" name = 'submit' value="Create My Post!">
-                    </p>
-                </div>
-                </form>
-            </div>    
-        </div>    
-=======
-                        <span class="help-block"></span></br>
-
+                        <div class = "form-group">
+                            <label>Image 3 description:</label>
+                            <input type="text" name="img3desc" class="form-control" placeholder="Describe your third gallery image" required>
+                            </br>
+                        </div>  
                         <div class="form-group">
                             <p>
                                 <input class="w3-btn w3-pink" type="submit" name = 'submit' value="Create My Post!">
                             </p>
                         </div>
                     </form>
-                </div>    
-            </div>
->>>>>>> 1763902e6072a8725887cb87d56d5c0ebccf999d
+                </div>
 
+
+            </div>    
         </div>    
-    <div class="rightcolumn">
-        <div class="card">
-            <p style="padding-left:20px;padding-top:20px;"><b>Top Tips:</b></p>
-            <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 1. If you want a new line break, please write &lt;/br&gt; at the end of the line.</p>
-            <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 2. If you want an empty line between the next paragraph, please write &lt;/br&gt;&lt;/br&gt; at the end of the previous paragraph.</p>
-            <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 3. If you would like to display a list with bullet points, please write it likes this:</p>
-            <p style="font-size: 15px; margin-left: 10px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> &lt;ul&gt; </br> &lt;li&gt;Coffee&lt;/li&gt; </br> &lt;li&gt;Tea&lt;/li&gt;  </br> &lt;li&gt;Milk&lt;/li&gt; </br> &lt;/ul&gt;</p>
+
+        <div class="rightcolumn">
+            <div class="card">
+                <p style="padding-left:20px;padding-top:20px;"><b>Top Tips:</b></p>
+                <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 1. If you want a new line break, please write &lt;/br&gt; at the end of the line.</p>
+                <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 2. If you want an empty line between the next paragraph, please write &lt;/br&gt;&lt;/br&gt; at the end of the previous paragraph.</p>
+                <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 3. If you would like to display a list with bullet points, please write it likes this:</p>
+                <p style="font-size: 15px; margin-left: 10px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> &lt;ul&gt; </br> &lt;li&gt;Coffee&lt;/li&gt; </br> &lt;li&gt;Tea&lt;/li&gt;  </br> &lt;li&gt;Milk&lt;/li&gt; </br> &lt;/ul&gt;</p>
+                <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 4. The form will only accept .jpeg image files.</p>
+            </div>
         </div>
-    </div>
     </div>
 
 

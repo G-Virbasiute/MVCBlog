@@ -1,6 +1,16 @@
 <?php
 
-include 'phpFileUploadErrors.php';
+//these are the file handling errors that show up for image uploads
+$phpFileUploadErrors = array(
+    0 => 'Successful upload!',
+    1 => 'Max filesize in php.ini exceeded',
+    2 => 'Max filesize in html exceeded',
+    3 => 'Only partial upload',
+    4 => 'No file uploaded, note that if you are updating a blog post and did not select a file, this is ok and your image will have stayed the same as before.',
+    6 => 'Mising a temporary folder',
+    7 => 'Failed to write to disk',
+    8 => 'PHP stopped file upload',
+);
 
 class Post {
 
@@ -184,8 +194,6 @@ class Post {
         Post::uploadMultiFile($title);
     }
 
-    
-    
     public static function add($userid) {
         $db = Db::getInstance();
         $req = $db->prepare("INSERT INTO BLOG_POSTS(UserID, Title, Category, Blurb, MainImage, Content, DifficultyRating, Created, galimg1, galimg1desc, galimg2, galimg2desc, galimg3, galimg3desc) VALUES ($userid, :title, :category, :blurb, :mainimage, :content, :rating, SYSDATE(), :galimg1, :galimg1desc, :galimg2, :galimg2desc, :galimg3, :galimg3desc)");
@@ -306,11 +314,10 @@ class Post {
                     $static_final_name = $name;
 //define directory 
                     $path = dirname(__DIR__) . "/views/images/blogpics/";
-                    echo $path;
 
 //move uploaded files
                     if (move_uploaded_file($tmp_name, $path . $static_final_name . $i . "." . $file_ext)) {
-                        echo $current_name . " upload is complete<br>";
+                        echo "Image file " . $i . " uploaded successfully!" . "</br>";
                     } else {
                         echo "move_uploaded_file function failed for " . $current_name . "<br>";
                     } if (file_exists($tmp_name)) {
