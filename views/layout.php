@@ -20,13 +20,14 @@ $categories->execute();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOz526glReNGZcpmidNlUZa6RjUxZ9W14&libraries=places"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <link href="views/css/carouselcss.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/post.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/auth.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/comment.css" rel="stylesheet" type="text/css"/>
         <link href="views/css/gallery.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="gen_validatorv4.js" type="text/javascript"></script>
         <title>Life's a Stitch</title>
 <script language=”JavaScript”>
     var frmvalidator = new Validator("contactform"); 
@@ -34,6 +35,7 @@ $categories->execute();
     frmvalidator.addValidation("email","req","Please provide your email"); 
     frmvalidator.addValidation("email","email", "Please enter a valid email address"); 
 </script>
+
     </head>
     
     <body>
@@ -47,7 +49,7 @@ $categories->execute();
 
             .dropdown-menu {
                 width: 200px;
-                height: 200px;
+                height: 130px;
                 overflow-y: auto;
             }
 

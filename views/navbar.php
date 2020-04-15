@@ -18,7 +18,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Categories
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div class="dropdown-menu" style="width: 200px; height: 250px; "aria-labelledby="navbarDropdownMenuLink">
                                 <table>
                                     <?php foreach ($categories as $category): ?>
                                         <tr>
@@ -59,3 +59,4 @@
                 </div>
             </nav>
         </div>
+</div>

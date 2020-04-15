@@ -108,29 +108,26 @@ $categories->execute();
                                    value="10000000"  
                                    />  
                             <label>Main blog image: </label>
-                            <input type="file" name="blogpic[]" class="w3-btn w3-pink"/>
+                            <input type="file" name="blogpic[]" class="form-control"/>
                         </div>
                         <div class = "form-group">
                             <label>Image 1</label>
-                            <input type="text" name="img1desc" class="form-control" placeholder="Describe image 1 in your gallery" required autofocus>
                         </div>    
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                         <input type = "file" name = "blogpic[]" accept="image/*" class="form-control" />
                         <span class="help-block"></span></br>
                         <div class="form-group">
                             <label>Image 2</label>
-                            <input type="text" name="img2desc" class="form-control" placeholder="Describe image 2 in your gallery" required autofocus>
                         </div>    
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                         <input type = "file" name = "blogpic[]" accept="image/*" class="form-control" />
                         <span class="help-block"></span></br>
                         <div class="form-group">
                             <label>Image 3</label>
-                            <input type="text" name="img3desc" class="form-control" placeholder="Describe image 3 in your gallery" required autofocus>
                         </div>    
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                         <input type = "file" name = "blogpic[]" accept="image/*" class="form-control" />
-                        <span class="help-block"></span></br>
+                        <span class="help-block"></span></br>                     
                 </div>
 
                 <div class="form-group">
@@ -141,8 +138,6 @@ $categories->execute();
                 </form>
             </div>    
         </div>    
-    </div>
-
 
     <div class="rightcolumn">
         <div class="card">
@@ -152,6 +147,7 @@ $categories->execute();
             <p style="font-size: 15px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> 3. If you would like to display a list with bullet points, please write it likes this:</p>
             <p style="font-size: 15px; margin-left: 10px; font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;"> &lt;ul&gt; </br> &lt;li&gt;Coffee&lt;/li&gt; </br> &lt;li&gt;Tea&lt;/li&gt;  </br> &lt;li&gt;Milk&lt;/li&gt; </br> &lt;/ul&gt;</p>
         </div>
+    </div>
     </div>
 
 
