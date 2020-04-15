@@ -187,7 +187,7 @@ class User {
         $db = Db::getInstance();
         //make sure $username is a string
         $username = strval($username);
-        $req = $db->prepare('delete FROM USER_TABLE WHERE Username = :username');
+        $req = $db->prepare('SET FOREIGN_KEY_CHECKS=0; delete FROM USER_TABLE WHERE Username = :username');
         // the query was prepared, now replace :username with the actual $username value
         $req->execute(array('username' => $username));
     }
