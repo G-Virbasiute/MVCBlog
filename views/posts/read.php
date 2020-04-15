@@ -52,28 +52,7 @@
             <div class="clearfix"></div>
         </div>
 
-        <div class="card">
-            <?php
-            echo '<div class="fb-share-button" data-href="https://lifesastitch.uk/mvcindex.php?controller=post&action=read&id=' . $post->postid . '" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=lifesastitch.uk/mvcindex.php?controller=post&action=read&id=' . $post->postid . '"  class="fb-xfbml-parse-ignore">Share</a></div>';
-            ?>
-        </div>
-
-        <?php
-        if (isset($_SESSION["loggedin"])) {
-            echo '<div style="background-color: #d3c1e6; width: 200px; border: 5px solid black; padding: 50px; margin: 20px; text-align:center">';
-            echo '<div>';
-            echo '<p style="font-size: 30px; font-family: "Amatic SC", cursive;"><a style="color: red" href="?controller=post&action=like&id=' . $post->postid . '" onclick="pop()"><i class="fa fa-heart"></i></a>' . $post->likes . '</p>';
-            echo '</div>';
-            echo '</div>';
-        } else {
-            echo '<div style="background-color: #d3c1e6; width: 200px; border: 5px solid black; padding: 50px; margin: 20px; text-align:center">';
-            echo '<div>';
-            echo '<p style="font-size: 30px; font-family: "Amatic SC", cursive;"><a style="color: red"><i class="fa fa-heart"></i></a>' . $post->likes . '</p>';
-            echo '</div>';
-            echo '</div>';
-        }
-        ?>
-
+        
         <div class="container1">
             <span onclick="this.parentElement.style.display = 'none'" class="closebtn">&times;</span>
 
