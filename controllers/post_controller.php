@@ -116,7 +116,7 @@ class PostController {
         Post::remove($_GET['id']);
 
         $posts = Post::all();
-        require_once('views/posts/readAll.php');
+        require_once('views/posts/readallposts.php');
     }
 
     public function like() {

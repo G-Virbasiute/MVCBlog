@@ -69,7 +69,11 @@ echo "<img src='views/images/profilepics/anon.png' width='150' />";
                 <?php endforeach; ?>
             </td>
         </tr>
-  <tr>
+      <tr>
+  <td>
+  <a href="?controller=post&action=delete&id">Delete Blog Posts</a>
+  </td>
+      </tr>
     <td>
         <a href="?controller=post&action=create"<?php echo $_SESSION['username'] ?>">Create a Post</a>
     </td>
