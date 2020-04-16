@@ -268,7 +268,7 @@ class User {
                         $_SESSION["uid"] = $userid;
                         // Refreshes page to remove session info and redirects to home page
                         //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
-                        echo '<script>window.location="http://localhost:8080/FinalBlog/mvcindex.php"</script>';
+                        echo '<script>window.location="http://lifesastitch.uk/mvcindex.php"</script>';
 
                 }    
             }
@@ -323,7 +323,7 @@ class User {
 
         // Refreshes page to remove session info and redirects to home page
         //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
-        echo '<script>window.location="http://localhost:8080/FinalBlog/mvcindex.php"</script>';
+        echo '<script>window.location="http://lifesastitch.uk/mvcindex.php"</script>';
         exit;
     }
 
@@ -335,7 +335,7 @@ class User {
         
         //Creates a link to the create password page with the token appended
         //***EDIT THE URL TO MATCH YOUR NETBEANS PROJECT NAME***
-        $url = "http://localhost:8080/FinalBlog/mvcindex.php?controller=user&action=createNewPassword&selector=" . $selector . "&validator=" . bin2hex($token);
+        $url = "http://lifesastitch.uk/mvcindex.php?controller=user&action=createNewPassword&selector=" . $selector . "&validator=" . bin2hex($token);
         
         //Sets token expiry to 1hr (in seconds) from now
         $expires = date("U") + 1800;

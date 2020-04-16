@@ -7,7 +7,7 @@ class PostController {
 
     public function readAll() {
 // we store all the posts in a variable
-        $posts = Post::all();
+                $posts = Post::all();
         require_once('views/posts/readAll.php');
     }
 
@@ -114,13 +114,14 @@ class PostController {
 
     public function delete() {
         Post::remove($_GET['id']);
-
         $posts = Post::all();
-        require_once('views/posts/readallposts.php');
+        
+        require_once('views/posts/readAll.php');
     }
 
     public function like() {
         Post::like($_GET['id']);
+        
         require_once('views/posts/like.php');
     }
 
