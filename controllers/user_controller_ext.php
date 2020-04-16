@@ -79,7 +79,7 @@ class UserController {
         User::remove($_GET['username']);
         
         //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
-        echo '<script>window.location="http://lifesastitch.uk/mvcindex.php"</script>';
+        echo '<script>window.location="/mvcindex.php"</script>';
     }
 
     public function authUser() {

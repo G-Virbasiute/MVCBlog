@@ -268,7 +268,7 @@ class User {
                         $_SESSION["uid"] = $userid;
                         // Refreshes page to remove session info and redirects to home page
                         //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
-                        echo '<script>window.location="http://lifesastitch.uk/mvcindex.php"</script>';
+                        echo '<script>window.location="/mvcindex.php"</script>';
 
                 }    
             }
@@ -323,7 +323,7 @@ class User {
 
         // Refreshes page to remove session info and redirects to home page
         //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
-        echo '<script>window.location="http://lifesastitch.uk/mvcindex.php"</script>';
+        echo '<script>window.location="/mvcindex.php"</script>';
         exit;
     }
 
