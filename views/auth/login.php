@@ -13,12 +13,17 @@
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Login">
                 </div>
+                
             </form>
+                <img height="27px" width="auto" src="views/images/fbutton.png">
+                <img height="31px" width="auto" src="views/images/gbutton.png">                       
+
         </div>
         
         <p style="padding-left:20px;">
             Don't have an account? <a href="?controller=user&action=createUser">Sign up now</a>.<br>
-            <a href="?controller=user&action=forgotPassword">Forgot Your Password?</a>  
+            <a href="?controller=user&action=forgotPassword">Forgot Your Password?</a><br>
+
         </p>
         
     </body>
