@@ -2,6 +2,8 @@
 
 include 'models/post.php';
 include 'models/user.php';
+include 'models/category.php';
+
 //'delete', 'createPost', 'updateDetails', 'deletePost'
 class DashboardController {
     public function read() {
@@ -10,6 +12,7 @@ class DashboardController {
         $usertype = Dashboard::getUserType($_SESSION['uid']);
         $allposts = Post::all();
         $users = User::all();
+        $categories = Category::all();
 
 
         if($usertype == 'Member') {

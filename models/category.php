@@ -38,7 +38,7 @@ class Category {
 
     public static function update($id) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update POST_CATEGORY set Category=:Category");
+        $req = $db->prepare("Update POST_CATEGORY set Category=:category WHERE CategoryID = $id");
         $req->bindParam(':category', $category);
 
 

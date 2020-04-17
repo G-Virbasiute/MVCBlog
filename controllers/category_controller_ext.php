@@ -59,7 +59,8 @@ class CategoryController {
             Category::remove($_GET['id']);
             
              //***AMEND THIS URL TO MATCH YOUR PROJECT NAME*** 
-            echo '<script>window.location="http://localhost:8080/FinalBlog/mvcindex.php"</script>';
-    }
+            echo '<script>window.location="/mvcindex.php"</script>';   
+            }
 }
 ?>
+

@@ -1,6 +1,6 @@
 <link href="views/css/dash.css" rel="stylesheet" type="text/css"/>
 
-<h1 style='margin-left: 20px'>Welcome <?php echo $_SESSION['username']?>!</h1>
+<h1 style='margin-left: 20px'>Welcome!</h1>
 <p style='margin-left: 20px'>Here's the place for you to manage your information, posts, and events.</p>
 
 <div class="tab">

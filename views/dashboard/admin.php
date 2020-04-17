@@ -1,12 +1,13 @@
 <link href="views/css/dash.css" rel="stylesheet" type="text/css"/>
 
-<h1 style='margin-left: 20px'>Welcome <?php echo $_SESSION['username']?>!</h1>
+<h1 style='margin-left: 20px'>Welcome!</h1>
 <p style='margin-left: 20px'>Here's the place for you to manage your information, posts, and events.</p>
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'Details')" id="defaultOpen">Details</button>
     <button class="tablinks" onclick="openTab(event, 'Users')">Users</button>
     <button class="tablinks" onclick="openTab(event, 'Posts')">Posts</button>
+    <button class="tablinks" onclick="openTab(event, 'Categories')">Categories</button>
     <button class="tablinks" onclick="openTab(event, 'Calendar')">Calendar</button>
 
 </div>
@@ -48,40 +49,40 @@
 </div>
 
 <div id="Posts" class="tabcontent">
- <!--
+    <h2>All Posts on "Life's a Stitch"</h2>
+    <?php foreach ($allposts as $post) { ?>
+        <div style="font-size: 15px">
+
+            <p>
+                <?php echo $post->title ?> 
+                <a style="color:black;border-bottom: 3px solid black;" href="?controller=post&action=read&id=<?php echo $post->postid; ?>">See Post</a> 
+                <a style="color:black;border-bottom: 3px solid black;" href='?controller=post&action=delete&id=<?php echo $post->postid; ?>'>Delete Post</a> 
+            </p>
+        </div>
+    <?php } ?>
     <div>
-  <h2>Your Posts</h2>
-  <p><?php /* foreach ($posts as $post): ?>
-                    <tr>
-                        <?php
-                        echo '<div>';
-                        echo '<p style="font-size:20px"><a style="color:black" href="?controller=post&action=read&id=' . $post->postid . '">' . $post->title . '</a>'
-                            .'</p>';
-                        echo '</div>';
-                        ?>
-                    </tr>
-                <?php endforeach; */?></p> 
+        <h2 style='margin-top: 20px'><a style="color:black;border-bottom: 3px solid black;" href="?controller=post&action=create"<?php echo $_SESSION['username'] ?>">Create a Post</a></h2>
+
     </div>
-    <div>
- -->
- <h2>All Posts on "Life's a Stitch"</h2>
- <?php foreach ($allposts as $post) { ?>
-     <div style="font-size: 15px">
-
-         <p>
-             <?php echo $post->title ?> 
-             <a style="color:black;border-bottom: 3px solid black;" href="?controller=post&action=read&id=<?php echo $post->postid; ?>">See Post</a> 
-             <a style="color:black;border-bottom: 3px solid black;" href='?controller=post&action=delete&id=<?php echo $post->postid; ?>'>Delete Post</a> 
-         </p>
-     </div>
- <?php } ?>
- <div>
-     <h2 style='margin-top: 20px'><a style="color:black;border-bottom: 3px solid black;" href="?controller=post&action=create"<?php echo $_SESSION['username'] ?>">Create a Post</a></h2>
-
- </div>
-
 </div>
+
+
+<div id="Categories" class="tabcontent">
+    <h3 style="float:left">All available categories</h3> &nbsp; &nbsp; &nbsp; &nbsp; 
+    <h3 style="float:left; margin-left: 50px"><a style="color: black; border: 3px solid black;" href='?controller=category&action=create'>Add a New Category</a></h3><br/>
+    <p><br/></p>
+    
+    <div style="font-size: 15px">
+    <?php foreach ($categories as $category) { ?>
+        <p>
+            <?php echo $category->category?> &nbsp; &nbsp;
+            <a style="color: black; border-bottom: 3px solid black;" href='?controller=category&action=delete&id=<?php echo $category->categoryid; ?>'>Delete Category</a> &nbsp; &nbsp;
+            <a style="color: black; border-bottom: 3px solid black;" href='?controller=category&action=update&id=<?php echo $category->categoryid; ?>'>Update Category</a> &nbsp;
+        </p>
+    <?php } ?>
+    </div>
 </div>
+
 
 <div id="Calendar" class="tabcontent">
     <h3>Event Calendar</h3>
