@@ -55,7 +55,7 @@
             <div>
     <a href="https://www.youtube.com/channel/UCFtOhloeiDNyVMDLRgZpGuw?view_as=subscriber" class="fa fa-youtube"></a>
     <a href="https://www.instagram.com/lifesa2020stitch/" class="fa fa-instagram"></i></a>
-    <div>
+    </div>
             </div>
     </div>
 </div>
