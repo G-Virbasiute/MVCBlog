@@ -3,7 +3,7 @@ session_start();
 
 /* * *PRE POPULATE CATEGORIES** */
 $db = Db::getInstance();
-$categories = $db->prepare('SELECT * FROM POST_CATEGORY');
+$categories = $db->prepare('SELECT * FROM POST_CATEGORY ORDER BY Category ASC');
 $categories->execute();
 ?>
 
@@ -64,8 +64,6 @@ $categories->execute();
         </style>
     <center><img style="margin-top: 10px; margin-bottom: 5px;" src="views/images/logo2.png"></center>
         <?php include_once('views/navbar.php'); ?>
-
-    </div>
 
     <div>
         <?php require_once('routes.php'); ?>
