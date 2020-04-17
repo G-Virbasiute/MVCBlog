@@ -73,8 +73,8 @@
                 <tr>
                     <?php
                     echo '<div>';
-                    echo '<a href="?controller=post&action=read&id=' . $post->postid . '"><img src="' . $post->mainimage . '" style="height:200px;"></a>';
-                    echo '</div>';
+                    echo '<a href="?controller=post&action=read&id=' . $post->postid . '"><img src="' . $post->mainimage . '" style="height:150px;width:auto"></a>';
+                    echo '</div><br>';
                     ?>
                 </tr>
             <?php endforeach;?>
