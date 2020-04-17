@@ -22,8 +22,7 @@
     <div class="rightcolumn">
         <div class="card">
             <h2>Events Calendar</h2>
-            <div class="fakeimg" style="height:100px;">Put in the calendar here</div>
-
+            <p style="margin-top: 30px;"><iframe style=" width: 100%" src="https://calendar.google.com/calendar/embed?height=300&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FLondon&amp;src=Y2c3dWt2c2t2MTY0cjJiNm9xZmtnbG9wdG9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%238E24AA&amp;showTz=0" style="border:solid 1px #777" width="400" height="300" frameborder="0" scrolling="no"></iframe></p>
         </div>
         <div class="card">
             <h3>Card for something else:</h3>

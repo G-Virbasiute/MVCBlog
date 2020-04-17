@@ -9,7 +9,7 @@
             <?php
             echo '<div>';
             echo '<h1>' . $post->title . '</h1>';
-            echo '<img style="width: auto; height: 400px" src="' . $post->mainimage . '"></br>';
+            echo '<img style="width: 100%; max-width: 400px; height: auto;" src="' . $post->mainimage . '"></br>';
             echo '<div style="margin-right:15px">';
             echo '<p> Written by: ' . $user->username . '</p>';
             echo '<p> Category: ' . $post->category . '</p>';
@@ -69,7 +69,10 @@
         </div>
         <div class="card">
             <h3>Other posts by the author:</h3>
-            <?php foreach ($posts as $post): ?>
+            <?php if ($posts == []){
+                echo "<p>The author hasn't published anything else yet</p>";
+            } else {
+                foreach ($posts as $post): ?>
                 <tr>
                     <?php
                     echo '<div>';
@@ -77,7 +80,7 @@
                     echo '</div>';
                     ?>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach; } ?>
         </div>
         <div class="card">
             <h3>Follow Me</h3>
