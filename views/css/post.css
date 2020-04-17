@@ -47,49 +47,51 @@ body {
 
 /* Adding CSS for post gallery below */
 
-div.gallery {
-  border: 1px solid #ccc;
-}
-
-div.gallery:hover {
-  border: 1px solid #777;
-}
-
-div.gallery img {
-  width: 100%;
-  height: auto;
-}
-
-div.desc {
-  padding: 15px;
-  text-align: center;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.responsive #gal {
-  padding: 0 6px;
+/* The grid: Four equal columns that floats next to each other */
+.column {
   float: left;
-  width: 24.99999%;
+  width: 25%;
+  padding: 10px;
 }
 
-@media only screen and (max-width: 700px) {
-  .responsive {
-    width: 49.99999%;
-    margin: 6px 0;
-  }
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
-@media only screen and (max-width: 500px) {
-  .responsive {
-    width: 100%;
-  }
+.column img:hover {
+  opacity: 1;
 }
 
-.clearfix:after {
+/* Clear floats after the columns */
+.row#gallery :after {
   content: "";
   display: table;
   clear: both;
+}
+
+/* The expanding image container (positioning is needed to position the close button and the text) */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
 }
