@@ -76,7 +76,7 @@
                 <tr>
                     <?php
                     echo '<div>';
-                    echo '<a href="?controller=post&action=read&id=' . $post->postid . '"><img src=' . $post->mainimage . ' style="height:200px;"></a>';
+                    echo '<a href="?controller=post&action=read&id=' . $post->postid . '"><img src="' . $post->mainimage . '" style="height:200px;"></a>';
                     echo '</div>';
                     ?>
                 </tr>
