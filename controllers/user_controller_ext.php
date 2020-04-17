@@ -56,6 +56,24 @@ class UserController {
             return call('pages', 'home');
 }
     }
+    
+        public function updateUserbyAdmin() {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            if (!isset($_GET['username']))
+                return call('pages', 'error');
+
+            // we use the given username to get the correct user
+            $user = User::find($_GET['username']);
+            require_once('views/users/updateuserbyAdmin.php');
+        } else {
+            $username = $_GET['username'];
+            User::updatebyAdmin($username);
+
+            $users = User::all();
+            return call('pages', 'home');
+        }
+    }
 
     public function updatePicture() {
 

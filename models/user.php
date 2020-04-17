@@ -92,6 +92,38 @@ class User {
         $emailaddress = $filteredEmail;
         $req->execute();
     }
+    
+    public static function updatebyAdmin($username) {
+        $db = Db::getInstance();
+        $req = $db->prepare("Update USER_TABLE set UserType=:usertype, FirstName=:firstname, LastName=:surname, EmailAddress=:email where Username=:username");
+        $req->bindParam(':usertype', $usertype);
+        $req->bindParam(':username', $username);
+        $req->bindParam(':firstname', $firstname);
+        $req->bindParam(':surname', $surname);
+        $req->bindParam(':email', $emailaddress);
+
+        if (isset($_POST['usertype']) && $_POST['usertype'] != "") {
+            $filteredUserType = filter_input(INPUT_POST, 'usertype', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        
+        if (isset($_POST['firstname']) && $_POST['firstname'] != "") {
+            $filteredFirstName = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+
+        if (isset($_POST['surname']) && $_POST['surname'] != "") {
+            $filteredSurname = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+
+        if (isset($_POST['email']) && $_POST['email'] != "") {
+            $filteredEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        
+        $usertype = $filteredUserType;
+        $firstname = $filteredFirstName;
+        $surname = $filteredSurname;
+        $emailaddress = $filteredEmail;
+        $req->execute();
+    }
 
     public static function updatePicture($username) {
         $db = Db::getInstance();
