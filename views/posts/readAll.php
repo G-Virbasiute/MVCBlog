@@ -1,4 +1,24 @@
+<style>
+    .fa {
+  padding: 20px;
+  font-size: 30px;
+  height: 100%;
+  width: 25%;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
 
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+</style>
 <div class="row" style='margin-right: 10px; margin-left: 10px'>
     <div class="leftcolumn">
         <div class="card">
@@ -32,7 +52,10 @@
         </div>
         <div class="card">
             <h3>Follow Us</h3>
-            <p>Link to our social media</p>
-        </div>
+            <div>
+    <a href="https://www.youtube.com/channel/UCFtOhloeiDNyVMDLRgZpGuw?view_as=subscriber" class="fa fa-youtube"></a>
+    <a href="https://www.instagram.com/lifesa2020stitch/" class="fa fa-instagram"></i></a>
+    <div>
+            </div>
     </div>
 </div>
