@@ -27,7 +27,6 @@
                     <tr>
                         <?php
                         echo '<div>';
-                        echo '<img src="' . $post->mainimage . '"alt="Main Image" style="float:right;width:auto;height:100px;margin-right:15px;">';
                         echo '<h1><a href="?controller=post&action=read&id=' . $post->postid . '">' . $post->title . '</a></h1>';
                         echo '<p>Posted on ' . ($post->created) . '</p>';
                         echo '<p>' . $post->blurb . '</p>';
