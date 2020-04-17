@@ -76,10 +76,11 @@ $categories->execute();
                                 ?>
                             </select>
                         </div>
+                        <!--
                         <div class="form-group">
                             <p>
                                 <label>Change publish status:</label></br>
-                                <?php
+                                <?php /*
                                 switch ($post->poststatus) {
                                     case 0:
                                         echo "<input type= 'radio' name='poststatus' value='1'"
@@ -95,9 +96,10 @@ $categories->execute();
                                         . "<label>Set as unpublished</label><br>";
                                         break;
                                 }
-                                ?>
+                                */?>
                             </p>
                         </div>
+                        -->
                         <div class="form-group">
                             <label>Change the main blog picture:</label></br>
                             <?php

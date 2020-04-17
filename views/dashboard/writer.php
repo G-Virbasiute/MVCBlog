@@ -35,15 +35,17 @@
 <div id="Posts" class="tabcontent">
     <div>
         <h2>Your Posts</h2>
-        <p><?php foreach ($posts as $post): ?>
-  <tr>
-  <?php
-  echo '<div>';
-  echo '<p style="font-size:20px"><a style="color:black" href="?controller=post&action=read&id=' . $post->postid . '">' . $post->title . '</a></p>';
-  echo '</div>';
-  ?>
-  </tr>
-  <?php endforeach;  ?></p> 
+        <?php foreach ($posts as $post) { ?>
+        <div style="font-size: 15px">
+
+            <p>
+                <?php echo $post->title ?> 
+                <a style="color:black;border-bottom: 3px solid black;" href="?controller=post&action=read&id=<?php echo $post->postid; ?>">See Post</a> 
+                <a style="color:black;border-bottom: 3px solid black;" href='?controller=post&action=update&id=<?php echo $post->postid; ?>'>Update Post</a> 
+                <a style="color:black;border-bottom: 3px solid black;" href='?controller=post&action=delete&id=<?php echo $post->postid; ?>'>Delete Post</a> 
+            </p>
+        </div>
+    <?php } ?>
     </div>
 
  <div>

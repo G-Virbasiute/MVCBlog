@@ -129,7 +129,7 @@ class Post {
 
     public static function update($id) {
         $db = Db::getInstance();
-        $req = $db->prepare("Update BLOG_POSTS set Title=:title, Category=:category, Blurb=:blurb, MainImage=:mainimage, Content=:content, DifficultyRating=:rating, PostStatus=:poststatus, galimg1=:galimg1, galimg1desc=:galimg1desc, galimg2=:galimg2, galimg2desc=:galimg2desc, galimg3=:galimg3, galimg3desc=:galimg3desc WHERE PostID=:postid");
+        $req = $db->prepare("Update BLOG_POSTS set Title=:title, Category=:category, Blurb=:blurb, MainImage=:mainimage, Content=:content, DifficultyRating=:rating, galimg1=:galimg1, galimg1desc=:galimg1desc, galimg2=:galimg2, galimg2desc=:galimg2desc, galimg3=:galimg3, galimg3desc=:galimg3desc WHERE PostID=:postid");
         $req->bindParam(':postid', $id);
         $req->bindParam(':title', $title);
         $req->bindParam(':category', $category);
@@ -137,7 +137,6 @@ class Post {
         $req->bindParam(':mainimage', $mainimage);
         $req->bindParam(':content', $content);
         $req->bindParam(':rating', $rating);
-        $req->bindParam(':poststatus', $poststatus);
         $req->bindParam(':galimg1', $galimg1);
         $req->bindParam(':galimg1desc', $galimg1desc);
         $req->bindParam(':galimg2', $galimg2);
@@ -161,9 +160,6 @@ class Post {
         if (isset($_POST['rating']) && $_POST['rating'] != "") {
             $filteredRating = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if (isset($_POST['poststatus']) && $_POST['poststatus'] != "") {
-            $filteredPostStatus = filter_input(INPUT_POST, 'poststatus', FILTER_SANITIZE_SPECIAL_CHARS);
-        }
         if (isset($_POST['img1desc']) && $_POST['img1desc'] != "") {
             $filteredImg1desc = filter_input(INPUT_POST, 'img1desc', FILTER_SANITIZE_SPECIAL_CHARS);
         }
@@ -180,7 +176,6 @@ class Post {
         $mainimage = 'views/images/blogpics/' . $filteredTitle . '0' . '.jpeg';
         $content = $filteredContent;
         $rating = $filteredRating;
-        $poststatus = $filteredPostStatus;
         $galimg1 = 'views/images/blogpics/' . $filteredTitle . '1' . '.jpeg';
         $galimg1desc = $filteredImg1desc;
         $galimg2 = 'views/images/blogpics/' . $filteredTitle . '2' . '.jpeg';
