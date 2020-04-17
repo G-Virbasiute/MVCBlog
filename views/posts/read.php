@@ -68,11 +68,8 @@
             <?php echo '<p>' . $user->firstName . " " . $user->lastName . '</p>'; ?>
         </div>
         <div class="card">
-            <h3>Other posts by the author:</h3>
-            <?php if ($posts == []){
-                echo "<p>The author hasn't published anything else yet</p>";
-            } else {
-                foreach ($posts as $post): ?>
+            <h3>Posts by the author:</h3>
+            <?php foreach ($posts as $post): ?>
                 <tr>
                     <?php
                     echo '<div>';
@@ -80,7 +77,7 @@
                     echo '</div>';
                     ?>
                 </tr>
-            <?php endforeach; } ?>
+            <?php endforeach;?>
         </div>
         <div class="card">
             <h3>Follow Me</h3>
