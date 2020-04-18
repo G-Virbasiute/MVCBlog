@@ -4,7 +4,8 @@
             getUserAddressBy(position.coords.latitude, position.coords.longitude)
         },
         function (error) {
-            console.log("The Locator was denied :(")
+            alert("The Locator was denied, your location will not be shared.")
+            document.cookie = "town=" + "\"an unknown location.\";";
         })
 
     function getUserAddressBy(lat, long) {

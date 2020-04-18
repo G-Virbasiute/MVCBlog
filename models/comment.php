@@ -31,7 +31,7 @@ class Comment {
         $list = [];
         $db = Db::getInstance();
         $id = intval($id);
-        $req = $db->prepare('SELECT CommentID, PostID, COMMENTS.UserID, Comment, Time, City, USER_TABLE.Username FROM COMMENTS INNER JOIN USER_TABLE ON COMMENTS.UserID = USER_TABLE.UserID WHERE PostID = :id');
+        $req = $db->prepare('SELECT CommentID, PostID, COMMENTS.UserID, Comment, Time, City, USER_TABLE.Username FROM COMMENTS INNER JOIN USER_TABLE ON COMMENTS.UserID = USER_TABLE.UserID WHERE PostID = :id ORDER BY Time Desc');
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $comment) {
             $list[] = new Comment($comment['CommentID'], $comment['PostID'], $comment['UserID'], $comment['Comment'], $comment['Time'], $comment['City'], $comment['Username']);
