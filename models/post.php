@@ -59,7 +59,7 @@ class Post {
     public static function all() {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query('SELECT * FROM BLOG_POSTS');
+        $req = $db->query('SELECT * FROM BLOG_POSTS ORDER BY Created DESC');
 // we create a list of Blog Post objects from the database results
         foreach ($req->fetchAll() as $post) {
             $list[] = new Post($post['PostID'], $post['UserID'], $post['Title'], $post['Category'], $post['Blurb'], $post['MainImage'], $post['Content'], $post['DifficultyRating'], $post['Created'], $post['PostViews'], $post['PostStatus'], $post['Likes'], $post['galimg1'], $post['galimg1desc'], $post['galimg2'], $post['galimg2desc'], $post['galimg3'], $post['galimg3desc']);
