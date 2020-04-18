@@ -27,11 +27,12 @@
                     <tr>
                         <?php
                         echo '<div>';
-                        echo '<p><img style="float:left; width:200px;height:170px;margin-right:15px;" src="' . $post->mainimage . '" alt=""';
-                        echo '<h1><a href="?controller=post&action=read&id=' . $post->postid . '">' . $post->title . '</a></h1>';
+                        echo '<p style="font-family: Amatic SC, cursive; font-size: 25px"><img style="float:left; width:250px;height:190px;margin-right:15px;" src="' . $post->mainimage . '" alt=""';
+                        echo '<h1 style="font-family: Amatic SC, cursive;"><a href="?controller=post&action=read&id=' . $post->postid . '">' . $post->title . '</a></h1>';
                         echo '<p>Posted on ' . ($post->created) . '</p>';
                         echo '<p>' . $post->blurb . '</p>';
                         echo '<button><a href="?controller=post&action=read&id=' . $post->postid . '">Read More</a></button>';
+                        echo '<p><br/></p>';
                         echo '<p><br/></p>';
                         echo '</p>';
                         echo '</div>';
