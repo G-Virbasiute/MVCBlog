@@ -34,7 +34,7 @@ if (empty($errors)) {
 
     mail($to, $email_subject, $email_body, $headers);
 
-    header("Location: http://localhost:8080/BlogMVC/mvcindex.php?controller=pages&action=thankyou");
+    header("Location: mvcindex.php?controller=pages&action=thankyou");
     
 }
 
