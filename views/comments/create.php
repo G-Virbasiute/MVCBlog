@@ -1,14 +1,16 @@
 <script>
 (function () {
     navigator.geolocation.getCurrentPosition(function (position) {
-            getUserAddressBy(position.coords.latitude, position.coords.longitude)
+            document.cookie = "town=" + position.coords.latitude, position.coords.longitude + ";"
         },
         function (error) {
             alert("The Locator was denied, your location will not be shared.")
             document.cookie = "town=" + "\"an unknown location.\";";
         })
 
-    function getUserAddressBy(lat, long) {
+    /*
+     * 
+     *function getUserAddressBy(lat, long) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -22,7 +24,9 @@
         }
         xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyDOz526glReNGZcpmidNlUZa6RjUxZ9W14", true);
         xhttp.send();
-    }
+         * */
+     
+    
 })();
 
 
